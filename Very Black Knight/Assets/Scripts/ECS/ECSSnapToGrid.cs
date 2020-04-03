@@ -6,7 +6,7 @@ using UnityEditor;
 
 //Author: Vic
 [ExecuteInEditMode]
-public class SnapToGrid : MonoBehaviour
+public class ECSSnapToGrid : MonoBehaviour
 {
     private float cellSize = ECSBrain.tileSpacing;
     public bool touchingFloor = true;
