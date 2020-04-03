@@ -1,11 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
 
-
-//Author: Vic
-[ExecuteInEditMode]
 public class ECSSnapToGrid : MonoBehaviour
 {
     private float cellSize = ECSBrain.tileSpacing;
