@@ -8,7 +8,7 @@ using UnityEditor;
 [ExecuteInEditMode]
 public class SnapToGrid : MonoBehaviour
 {
-    private float cellSize = ECSBrain.tileSpacing;
+    private float cellSize;
     public bool touchingFloor = true;
 
     public bool scaleXToFitCell = false;
@@ -94,7 +94,7 @@ public class SnapToGrid : MonoBehaviour
     }
 
     void scaleXtoFit()
-    {
+    {        
         float xSize = mRenderer.bounds.size.x;
         Vector3 actualScale = gameObject.transform.localScale;
 

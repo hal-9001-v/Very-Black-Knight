@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Unity.Entities;
 
+
 public class ECSBrain : MonoBehaviour
 {
     EntityManager entityManager;
@@ -10,7 +11,7 @@ public class ECSBrain : MonoBehaviour
     public static Vector3 playerPosition { get; private set; }
     
     [SerializeField]
-    public static float tileSpacing;
+    public float tileSpacing { get; private set; }
 
     public static bool playerCanMakeMovement;
 
@@ -19,6 +20,8 @@ public class ECSBrain : MonoBehaviour
     {
         entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
         playerCanMakeMovement = true;
+
+        
     }
 
     public static void setPlayerPosition(float x, float z) {
