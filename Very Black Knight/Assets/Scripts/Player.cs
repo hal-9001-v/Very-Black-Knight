@@ -247,17 +247,18 @@ public class Player : MonoBehaviour
 
     private void loadData()
     {
-        //FLOATS
-        MAXHEALTH = PlayerPrefs.GetFloat("MAXHEALTH");
-        health = MAXHEALTH;
+        PlayerData pd = PlayerData.loadPlayerDataJSON();
 
-        //INTEGERS
-        playerLevel = PlayerPrefs.GetInt("playerLevel");
-        upgrades = PlayerPrefs.GetInt("upgrades");
-        movementLevel = PlayerPrefs.GetInt("movementLevel");
-        healthLevel = PlayerPrefs.GetInt("healthLevel");
-        inputCount = PlayerPrefs.GetInt("inputCount");
+        //Floats
+        MAXHEALTH = pd.maxHealth;
+        health = pd.health;
 
+        //Integers
+        playerLevel = pd.playerLevel;
+        upgrades = pd.upgradesLeft;
+        movementLevel = pd.movementLevel;
+        healthLevel = pd.healthLevel;
+        inputCount = pd.score;
         
         loadHealthLevel();
         loadMovementLevel();
@@ -289,19 +290,16 @@ public class Player : MonoBehaviour
     {
         inputCount += movementScript.inputCount;
 
-       // PlayerPrefs.DeleteAll();
 
-        //FLOATS
-        PlayerPrefs.SetFloat("MAXHEALTH", MAXHEALTH);
+        PlayerData pd = new PlayerData();
+        pd.maxHealth = MAXHEALTH;
+        pd.playerLevel = playerLevel;
+        pd.upgradesLeft = upgrades;
+        pd.movementLevel = movementLevel;
+        pd.healthLevel = healthLevel;
+        pd.score = inputCount;
 
-        //INTEGERS
-        PlayerPrefs.SetInt("playerLevel", playerLevel);
-        PlayerPrefs.SetInt("upgrades", upgrades);
-        PlayerPrefs.SetInt("movementLevel", movementLevel);
-        PlayerPrefs.SetInt("healthLevel", healthLevel);
-        PlayerPrefs.SetInt("inputCount", inputCount);
-
-        PlayerPrefs.Save();
+        pd.saveScoreJSON();
     }
 
     public void nextLevel()
