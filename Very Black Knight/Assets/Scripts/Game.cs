@@ -23,7 +23,7 @@ public class Game : MonoBehaviour
     List<Enemy> enemiesList;
 
     //List of floor tiles
-    GridTile[] tiles;
+    GridTilePro[] tiles;
 
     bool enemyTurn = true;
 
@@ -33,7 +33,7 @@ public class Game : MonoBehaviour
     public bool canMakeMovement(float x, float y)
     {
         //We have to check every floor tile we have
-        foreach (GridTile gt in tiles)
+        foreach (GridTilePro gt in tiles)
         {
             if (gt.movable(x, y))
             {
@@ -67,11 +67,11 @@ public class Game : MonoBehaviour
 
         //Tiles will be gotten from every gameObject whose tag is "tileTag"
         GameObject[] auxiliarGO = GameObject.FindGameObjectsWithTag(tileTag);
-        tiles = new GridTile[auxiliarGO.Length];
+        tiles = new GridTilePro[auxiliarGO.Length];
 
         for (int i = 0; i < tiles.Length; i++)
         {
-            tiles[i] = auxiliarGO[i].GetComponent<GridTile>();
+            tiles[i] = auxiliarGO[i].GetComponent<GridTilePro>();
         }
 
         Debug.Log("Current Tiles in the scene: " + tiles.Length);
@@ -80,7 +80,7 @@ public class Game : MonoBehaviour
         int startingTileCounter = 0;
 
         //This loop can be used to configure the scene
-        foreach (GridTile gt in tiles)
+        foreach (GridTilePro gt in tiles)
         {
             //Moving player to the starting point
             if (gt.startingTile)
