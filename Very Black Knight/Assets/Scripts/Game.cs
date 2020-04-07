@@ -143,10 +143,4 @@ public class Game : MonoBehaviour
         return null;
     }
 
-    public void loadNextLevel()
-    {
-        Debug.LogWarning("NEXT LEVEL");
-
-        myPlayerScript.activePlayer(true);
-    }
 }

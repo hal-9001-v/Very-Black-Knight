@@ -48927,6 +48927,11 @@ PrefabInstance:
       propertyPath: atEndTile.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3651073910861891231, guid: f422452fa27dd3a44b0413637bea542b,
+        type: 3}
+      propertyPath: playerObject
+      value: 
+      objectReference: {fileID: 1361155416}
     - target: {fileID: 4229075292503015860, guid: f422452fa27dd3a44b0413637bea542b,
         type: 3}
       propertyPath: m_Name
