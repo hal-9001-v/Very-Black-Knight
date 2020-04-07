@@ -51,9 +51,11 @@ public class SnapToGrid : MonoBehaviour
     void Update()
     {
 
-#if UNITY_EDITOR
+        if (!Application.isPlaying)
+        {
 
-        if (dimensions.x == 0) dimensions.x = 1;
+
+            if (dimensions.x == 0) dimensions.x = 1;
             if (dimensions.y == 0) dimensions.y = 1;
             if (cellSize == 0) cellSize = 1;
 
@@ -96,7 +98,7 @@ public class SnapToGrid : MonoBehaviour
 
 
             }
-#endif
+        }
     }
 
     void scaleXtoFit()
