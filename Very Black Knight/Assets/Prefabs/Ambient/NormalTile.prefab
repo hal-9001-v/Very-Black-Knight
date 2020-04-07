@@ -11,8 +11,7 @@ GameObject:
   - component: {fileID: 8974135709171203458}
   - component: {fileID: 131042400452937652}
   - component: {fileID: 5975440205833370445}
-  - component: {fileID: 8129124848139926796}
-  - component: {fileID: 7301307362305681927}
+  - component: {fileID: 476095482477814752}
   m_Layer: 0
   m_Name: NormalTile
   m_TagString: tile
@@ -29,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 5391320273978576785}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0.108735, z: -0}
-  m_LocalScale: {x: 0.2755, y: 1, z: 0.2755}
+  m_LocalScale: {x: 0.45, y: 1, z: 0.45}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -81,7 +80,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!114 &8129124848139926796
+--- !u!114 &476095482477814752
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -90,28 +89,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 5391320273978576785}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e1877b386c896514bbb21cbcff76fbc1, type: 3}
+  m_Script: {fileID: 11500000, guid: adec7d9d26034fe4abaa22204a7f9a6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   startingTile: 0
   endingTile: 0
---- !u!114 &7301307362305681927
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5391320273978576785}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e2ba6ca3fd77b83459e18d214f3b3cd9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  hurtTile: 0
+  damage: 1
+  teleportationTile: 0
+  teleportationTileObject: {fileID: 0}
+  pushTile: 0
+  pushTileObject: {fileID: 0}
   cellSize: 1
-  placeOnGrid: 1
-  touchingFloor: 1
-  scaleXToFitCell: 1
-  scaleZToFitCell: 1
-  scaleYToFitCell: 0
   scaleFactor: 0.9
-  dimensions: {x: 1, y: 1}

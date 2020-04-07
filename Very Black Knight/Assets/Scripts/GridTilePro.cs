@@ -12,7 +12,9 @@ public class GridTilePro : MonoBehaviour
     public bool endingTile = false;
 
     public bool hurtTile = false;
-
+    
+    [SerializeField]
+    private float damage = 1;
     
     public bool teleportationTile = false;
     public GameObject teleportationTileObject;
@@ -64,8 +66,22 @@ public class GridTilePro : MonoBehaviour
 
     }
 
-    public void tileEffects() { 
-    
+    public bool tileEffects() {
+
+        if (hurtTile) {
+            Player player = GameObject.FindGameObjectWithTag("player").GetComponent<Player>();
+
+            player.hurt(damage);
+            return true;
+        }
+
+        if (teleportationTile) { }
+        
+        if (pushTile) { 
+            
+        }
+
+        return true;
     }
 
 

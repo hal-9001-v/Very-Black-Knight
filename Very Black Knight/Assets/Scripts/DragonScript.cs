@@ -277,7 +277,7 @@ public class DragonScript : Enemy
         foreach (GameObject tile in attackTiles)
         {
 
-            if (tile.GetComponent<GridTile>().movable(player.transform.position.x, player.transform.position.z))
+            if (tile.GetComponent<GridTilePro>().movable(player.transform.position.x, player.transform.position.z))
             {
                 player.GetComponent<Player>().hurt(2);
 

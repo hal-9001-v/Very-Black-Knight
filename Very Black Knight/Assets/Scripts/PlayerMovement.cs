@@ -137,7 +137,7 @@ public class PlayerMovement : MonoBehaviour
         movementVector.z = Mathf.Round((transform.position.z + zMove * cellSize) / cellSize) * cellSize;
 
         //Start movement
-        if (game.canMakeMovement(movementVector.x, movementVector.z))
+        if (game.playerCanMakeMovement(movementVector.x, movementVector.z))
         {
             //It is necesarry to store point B for Interpolation
             startingPosition = transform.position;

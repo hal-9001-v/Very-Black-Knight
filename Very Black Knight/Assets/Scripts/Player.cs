@@ -138,7 +138,7 @@ public class Player : MonoBehaviour
         return finishedTurn;
     }
 
-    public void hurt(int dmg)
+    public void hurt(float dmg)
     {
         health -= dmg;
 
