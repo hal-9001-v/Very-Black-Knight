@@ -8,8 +8,8 @@ public class CameraFollower : MonoBehaviour
     public GameObject targetContainerObject;
 
     Camera myCamera;
-    Light myLight;
     Transform target;
+    //Light myLight;
 
     Vector3 cameraOffset;
     Vector3 destination;
@@ -17,11 +17,11 @@ public class CameraFollower : MonoBehaviour
     void Start()
     {
         myCamera = gameObject.GetComponent<Camera>();
-        myLight = gameObject.GetComponent<Light>();
+        //myLight = gameObject.GetComponent<Light>();
 
         target = targetContainerObject.GetComponent<Transform>();
 
-
+        //Locked position through player
         cameraOffset = transform.position - target.transform.position;
 
         if (myCamera == null)
@@ -36,19 +36,12 @@ public class CameraFollower : MonoBehaviour
 
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     void LateUpdate()
     {
+        //Moves on camera are interpolations. Destination variable is the "locked" place for the camera
         destination = target.transform.position + cameraOffset;
 
-        //transform.LookAt(Vector3.Lerp(transform.rotation.eulerAngles,target.position,1));
-        //transform.LookAt(target);
-
+        //If camera is close enough to destination, interpolation stops
         if (Vector3.Distance(destination, transform.position) > 0.1)
         {
             transform.position = Vector3.Lerp(transform.position, destination, Time.deltaTime);
