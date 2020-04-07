@@ -48927,6 +48927,11 @@ PrefabInstance:
       propertyPath: atEndTile.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3651073910861891231, guid: f422452fa27dd3a44b0413637bea542b,
+        type: 3}
+      propertyPath: playerObject
+      value: 
+      objectReference: {fileID: 1361155416}
     - target: {fileID: 4229075292503015860, guid: f422452fa27dd3a44b0413637bea542b,
         type: 3}
       propertyPath: m_Name
@@ -50400,6 +50405,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: NormalTile (9)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8129124848139926796, guid: 7a20c9b1242089a448186cfdd8c953a6,
+        type: 3}
+      propertyPath: endingTile
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8974135709171203458, guid: 7a20c9b1242089a448186cfdd8c953a6,
         type: 3}
