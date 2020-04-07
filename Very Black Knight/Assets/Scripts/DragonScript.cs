@@ -27,10 +27,9 @@ public class DragonScript : Enemy
     {
         if (readyForNextTurn)
         {
-            readyForNextTurn = false;
-
             if (hurt())
             {
+                readyForNextTurn = false;
                 currentState = (int)State.idle;
                 resetTurnIn(2f);
                 return;
@@ -45,47 +44,44 @@ public class DragonScript : Enemy
                     {
                         timeToReach = baseTimeToReach;
                     }
-                    else {
+                    else
+                    {
                         timeToReach = baseTimeToReach * 2;
                     }
 
-                        movementList.Clear();
+                    movementList.Clear();
 
-                        //Decide movement
-                        if (player.transform.position.x > transform.position.x)
-                        {
-                            movementList.Add(new Vector2(1, 0));
-                        }
-                        if (player.transform.position.z > transform.position.z)
-                        {
-                            movementList.Add(new Vector2(0, 1));
+                    //Decide movement
+                    if (player.transform.position.x > transform.position.x)
+                    {
+                        movementList.Add(new Vector2(1, 0));
+                    }
+                    if (player.transform.position.z > transform.position.z)
+                    {
+                        movementList.Add(new Vector2(0, 1));
 
-                        }
-                        if (player.transform.position.x < transform.position.x)
-                        {
-                            movementList.Add(new Vector2(-1, 0));
+                    }
+                    if (player.transform.position.x < transform.position.x)
+                    {
+                        movementList.Add(new Vector2(-1, 0));
 
-                        }
-                        if (player.transform.position.z < transform.position.z)
-                        {
-                            movementList.Add(new Vector2(0, -1));
-                        }
-
-
+                    }
+                    if (player.transform.position.z < transform.position.z)
+                    {
+                        movementList.Add(new Vector2(0, -1));
+                    }
 
 
-                        if (move())
-                        {
-                            currentState = (int)State.walking;
-                            myAnimator.SetBool("walking", true);
+                    if (runMoveList())
+                    {
+                        currentState = (int)State.walking;
+                        myAnimator.SetBool("walking", true);
+                        readyForNextTurn = false;
 
-                        }
-                        else
-                        {
-                            readyForNextTurn = true;
-                        }
+                    }
 
-                    
+
+
                     break;
 
                 //Walking
@@ -106,8 +102,9 @@ public class DragonScript : Enemy
 
     }
 
-    private bool move()
+    private bool runMoveList()
     {
+        //Run over all possible movement tiles 
         foreach (Vector2 movement in movementList)
         {
             if (canMakeMovement(movement.x, movement.y))
@@ -129,9 +126,9 @@ public class DragonScript : Enemy
     {
 
         MeshRenderer mr;
+
         foreach (GameObject tile in attackTiles)
         {
-
             if (tile.GetComponent<MeshRenderer>() != null)
                 mr = tile.GetComponent<MeshRenderer>();
             else
@@ -140,8 +137,9 @@ public class DragonScript : Enemy
 
             }
 
+            //Set last under attack tiles back to original colour 
             mr.material.color -= attackColor;
-            
+
         }
 
         attackTiles.Clear();
@@ -150,7 +148,7 @@ public class DragonScript : Enemy
         auxiliarVector = transform.position;
         attackTiles.Add(game.getTile(auxiliarVector));
 
-
+        //Check if tiles in default position exists and if so, add them to the tiles under attack list
         if (tileExists(1, 0))
         {
             auxiliarVector = transform.position;
@@ -211,6 +209,7 @@ public class DragonScript : Enemy
             attackTiles.Add(game.getTile(auxiliarVector));
         }
 
+        //Paint in red all tiles under Attack
         foreach (GameObject tile in attackTiles)
         {
             mr = tile.GetComponent<MeshRenderer>();
@@ -226,13 +225,12 @@ public class DragonScript : Enemy
 
     }
 
-
-    // Start is called before the first frame update
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("player");
-        movementList = new List<Vector2>();
 
+        movementList = new List<Vector2>();
+        
         baseTimeToReach = timeToReach;
 
         initialize();
@@ -251,6 +249,7 @@ public class DragonScript : Enemy
         makeMovement();
     }
 
+    //In t milliseconds, readyForNextTurn will be trye
     void resetTurnIn(float t)
     {
         waitTime = t;
@@ -259,6 +258,7 @@ public class DragonScript : Enemy
         delay = true;
     }
 
+    //Reset readyForNexTUrn after certain time specified in resetTurnIn(). This function is called in Update()
     void delayFunction()
     {
         if (delay)

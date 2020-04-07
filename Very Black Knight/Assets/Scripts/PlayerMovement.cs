@@ -12,7 +12,7 @@ public class PlayerMovement : MonoBehaviour
     private float cellSize;
 
     //Time to finish movement
-    public float MAXTIMETOREACH {get; private set;}
+    public float MAXTIMETOREACH { get; private set; }
     public float timeToReach;
     private float timeCounter;
 
@@ -32,7 +32,7 @@ public class PlayerMovement : MonoBehaviour
     {
         gameContainerObject = GameObject.Find("GameController");
         game = gameContainerObject.GetComponent<Game>();
-        cellSize = game.getCellSize();
+        cellSize = game.cellSize;
 
         MAXTIMETOREACH = 0.5f;
         timeToReach = MAXTIMETOREACH;
@@ -51,18 +51,12 @@ public class PlayerMovement : MonoBehaviour
             {
                 //Debug.Log("Up or W key was pressed");
 
-                if (!canMakeMovement(1, 0))
-                {
-                    //Debug.Log("Can't move forward");
-                }
-                else
+                if (canMakeMovement(1, 0))
                 {
                     gameObject.transform.eulerAngles = new Vector3(0, 90, 0);
                     inputCount++;
                     return true;
                 }
-
-
 
             }
 
@@ -70,18 +64,13 @@ public class PlayerMovement : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.DownArrow) | Input.GetKeyDown(KeyCode.S))
             {
 
-                //Debug.Log("Down or S key was pressed");
-
-                if (!canMakeMovement(-1, 0))
-                {
-                    //Debug.Log("Can't move BackWard");
-                }
-                else
+                if (canMakeMovement(-1, 0))
                 {
                     gameObject.transform.eulerAngles = new Vector3(0, -90, 0);
                     inputCount++;
                     return true;
                 }
+
             }
 
             //Right
@@ -89,11 +78,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 //Debug.Log("Right or D key was pressed");
 
-                if (!canMakeMovement(0, -1))
-                {
-                    // Debug.Log("Can't move Right");
-                }
-                else
+                if (canMakeMovement(0, -1))
                 {
                     gameObject.transform.eulerAngles = new Vector3(0, 180, 0);
                     inputCount++;
@@ -108,11 +93,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 //Debug.Log("Left or A key was pressed");
 
-                if (!canMakeMovement(0, 1))
-                {
-                    //Debug.Log("Can't move Left");
-                }
-                else
+                if (canMakeMovement(0, 1))
                 {
                     gameObject.transform.eulerAngles = new Vector3(0, 0, 0);
                     inputCount++;
@@ -180,7 +161,8 @@ public class PlayerMovement : MonoBehaviour
         return false;
     }
 
-    public void setTimeToReach(float f) {
+    public void setTimeToReach(float f)
+    {
         if (f < 0 || f > MAXTIMETOREACH) return;
 
         timeToReach = f;

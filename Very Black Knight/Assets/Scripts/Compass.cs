@@ -46,7 +46,8 @@ public class Compass : MonoBehaviour
         transform.position += dir;
 
     }
-
+    
+    //Compass points at ending tile.
     private void setDestination() {
         
         GameObject[] goList = GameObject.FindGameObjectsWithTag(tileTag);

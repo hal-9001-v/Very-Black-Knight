@@ -10,21 +10,22 @@ using UnityEngine.Events;
 public class Game : MonoBehaviour
 {
     //Tiletag is the tag name which floor tiles have
-    public string tileTag;
+    public string tileTag { get; private set; }
 
     //Size in the grid
-    public float cellSize = 1;
+    [SerializeField]
+    public float cellSize { get; private set; }
 
-    GameObject playerObject;
+    public GameObject playerObject;
     Player myPlayerScript;
 
     //Enemies list
-    List<GameObject> enemiesList;
+    List<Enemy> enemiesList;
 
     //List of floor tiles
-    GameObject[] tiles;
+    GridTile[] tiles;
 
-    bool enemyMovementActive = false;
+    bool enemyTurn = true;
 
     public UnityEvent atEndTile;
 
@@ -32,13 +33,11 @@ public class Game : MonoBehaviour
     public bool canMakeMovement(float x, float y)
     {
         //We have to check every floor tile we have
-        foreach (GameObject go in tiles)
+        foreach (GridTile gt in tiles)
         {
-
-            if (go.GetComponent<GridTile>().movable(x, y))
+            if (gt.movable(x, y))
             {
-
-                if (go.GetComponent<GridTile>().endingTile)
+                if (gt.endingTile)
                 {
                     Debug.Log("End of Scene");
                     atEndTile.Invoke();
@@ -51,48 +50,49 @@ public class Game : MonoBehaviour
         return false;
     }
 
-    // Start is called before the first frame update
     void Awake()
     {
-        playerObject = GameObject.Find("Player");
+        tileTag = "tile";
+        cellSize = 1;
 
         myPlayerScript = playerObject.GetComponent<Player>();
 
-        enemiesList = new List<GameObject>();
+        enemiesList = new List<Enemy>();
 
         //Find enemies in scene
         foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy"))
         {
-
-            enemiesList.Add(enemy);
-
+            enemiesList.Add(enemy.GetComponent<Enemy>());
         }
 
-        //Tiles will get every gameObject whose tag is "tileTag"
-        tiles = GameObject.FindGameObjectsWithTag(tileTag);
+        //Tiles will be gotten from every gameObject whose tag is "tileTag"
+        GameObject[] auxiliarGO = GameObject.FindGameObjectsWithTag(tileTag);
+        tiles = new GridTile[auxiliarGO.Length];
+
+        for (int i = 0; i < tiles.Length; i++)
+        {
+            tiles[i] = auxiliarGO[i].GetComponent<GridTile>();
+        }
+
         Debug.Log("Current Tiles in the scene: " + tiles.Length);
 
         //There's only a starting point in our scene, we have to count how many of them we have
         int startingTileCounter = 0;
 
-        //This loop can be use to configure the scene
-        foreach (GameObject go in tiles)
+        //This loop can be used to configure the scene
+        foreach (GridTile gt in tiles)
         {
-
             //Moving player to the starting point
-            if (go.GetComponent<GridTile>().startingTile)
+            if (gt.startingTile)
             {
                 startingTileCounter++;
 
-                Vector3 aux = go.transform.position;
+                Vector3 aux = gt.transform.position;
                 aux.y = playerObject.transform.position.y;
 
                 playerObject.transform.position = aux;
 
-
             }
-
-
         }
 
         //There is only one Ending tile per Scene
@@ -105,57 +105,42 @@ public class Game : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!enemyMovementActive)
+        if (enemyTurn)
         {
-            enemyMovementActive = true;
-            StartCoroutine(EnemyMoves());
+            if (myPlayerScript.hasFinishedTurn())
+            {
+                enemyTurn = false;
+                StartCoroutine(EnemyMoves());
+
+            }
+
         }
     }
 
-
-    public string getTileTag()
-    {
-        return tileTag;
-    }
 
     IEnumerator EnemyMoves()
     {
-        if (myPlayerScript.hasFinishedTurn())
+        foreach (Enemy enemyScript in enemiesList)
         {
-            Enemy enemyScript;
-            foreach (GameObject enemyObject in enemiesList)
-            {
-                enemyScript = enemyObject.GetComponent<Enemy>();
+            enemyScript.startTurn();
 
-                enemyScript.startTurn();
-
-                yield return 0;
-            }
+            yield return 0;
         }
-        enemyMovementActive = false;
-    }
 
-    public float getCellSize()
-    {
-        return cellSize;
+        enemyTurn = true;
     }
 
     public GameObject getTile(Vector3 positionVector)
     {
-        foreach (GameObject tile in tiles)
+        foreach (GridTile gt in tiles)
         {
-            if (tile.GetComponent<GridTile>().movable(positionVector.x, positionVector.z))
+            if (gt.movable(positionVector.x, positionVector.z))
             {
-                return tile;
+                return gt.gameObject;
             }
         }
 
         return null;
     }
 
-    public void loadNextLevel() {
-        Debug.LogWarning("NEXT LEVEL");
-
-        myPlayerScript.activePlayer(true);
-    }
 }

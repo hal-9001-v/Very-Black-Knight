@@ -15,7 +15,7 @@ public class GridTile : MonoBehaviour
     void Start()
     {
         //Setting tag for this object. Floor tiles will have the same
-        gameObject.tag = GameObject.Find("GameController").GetComponent<Game>().getTileTag();
+        gameObject.tag = GameObject.Find("GameController").GetComponent<Game>().tileTag;
     }
 
     //Checking if grid position x-z is next to this tile coordinates in Game Class. This is done by comparing to its own coordinates
