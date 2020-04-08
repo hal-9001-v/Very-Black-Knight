@@ -30,7 +30,7 @@ public class Game : MonoBehaviour
     public UnityEvent atEndTile;
 
     //This function is called to check wether floor tiles are next to the given coordinates, thus they are accessble
-    public bool canMakeMovement(float x, float y)
+    public bool playerCanMakeMovement(float x, float y)
     {
         //We have to check every floor tile we have
         foreach (GridTilePro gt in tiles)
@@ -44,11 +44,40 @@ public class Game : MonoBehaviour
                 }
 
                 return true;
+
             }
         }
 
         return false;
     }
+
+    public bool enemyCanMakeMovement(float x, float y)
+    {
+        //We have to check every floor tile we have
+        foreach (GridTilePro gt in tiles)
+        {
+            /*if (gt.movable(x, y))
+            {
+                if (gt.endingTile)
+                {
+                    Debug.Log("End of Scene");
+                    atEndTile.Invoke();
+                    return true;
+                }
+
+                return gt.tileEffects();
+
+            }*/
+
+            if (gt.movable(x, y)) {
+                return true;
+            }
+
+        }
+
+        return false;
+    }
+
 
     void Awake()
     {
@@ -93,6 +122,7 @@ public class Game : MonoBehaviour
                 playerObject.transform.position = aux;
 
             }
+
         }
 
         //There is only one Ending tile per Scene
@@ -132,7 +162,7 @@ public class Game : MonoBehaviour
 
     public GameObject getTile(Vector3 positionVector)
     {
-        foreach (GridTile gt in tiles)
+        foreach (GridTilePro gt in tiles)
         {
             if (gt.movable(positionVector.x, positionVector.z))
             {

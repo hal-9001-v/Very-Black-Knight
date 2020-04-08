@@ -58,7 +58,7 @@ public abstract class Enemy : MonoBehaviour
             movementVector.z = Mathf.Round((transform.position.z + zMove * cellSize) / cellSize) * cellSize;
 
             //Start movement
-            if (game.canMakeMovement(movementVector.x, movementVector.z))
+            if (game.enemyCanMakeMovement(movementVector.x, movementVector.z))
             {
                 //It is necesarry to store point B for Interpolation
                 startingPosition = transform.position;
@@ -118,7 +118,7 @@ public abstract class Enemy : MonoBehaviour
         auxiliarVector.x = Mathf.Round((transform.position.x + x * cellSize) / cellSize) * cellSize;
         auxiliarVector.y = Mathf.Round((transform.position.z + y * cellSize) / cellSize) * cellSize;
 
-        return game.canMakeMovement(auxiliarVector.x, auxiliarVector.y);
+        return game.enemyCanMakeMovement(auxiliarVector.x, auxiliarVector.y);
 
     }
 

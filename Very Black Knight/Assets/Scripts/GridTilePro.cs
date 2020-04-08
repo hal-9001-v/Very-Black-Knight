@@ -12,7 +12,9 @@ public class GridTilePro : MonoBehaviour
     public bool endingTile = false;
 
     public bool hurtTile = false;
-
+    
+    [SerializeField]
+    public float damage = 1;
     
     public bool teleportationTile = false;
     public GameObject teleportationTileObject;
@@ -64,9 +66,8 @@ public class GridTilePro : MonoBehaviour
 
     }
 
-    public void tileEffects() { 
+
     
-    }
 
 
 
