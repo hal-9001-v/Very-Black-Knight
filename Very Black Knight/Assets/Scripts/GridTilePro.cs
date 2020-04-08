@@ -4,6 +4,7 @@ using UnityEngine;
 
 //Author: Vic
 //This class works as a data container for the "floor". It is used for floor tiles which are important for the player's movement, therefore it is not suitable for decoration
+[ExecuteInEditMode]
 public class GridTilePro : MonoBehaviour
 {
     //Player starts on this tile
@@ -34,8 +35,6 @@ public class GridTilePro : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //Setting tag for this object. Floor tiles will have the same
-        gameObject.tag = GameObject.Find("GameController").GetComponent<Game>().tileTag;
 
         mRenderer = gameObject.GetComponent<MeshRenderer>();
 
@@ -74,20 +73,23 @@ public class GridTilePro : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (cellSize == 0) cellSize = 1;
+
+        if (!Application.isPlaying)
+        {
+            if (cellSize == 0) cellSize = 1;
 
 
-        scaleToFit();
+            scaleToFit();
 
-        float gridX;
-        float gridZ;
-        float gridY;
+            float gridX;
+            float gridZ;
+            float gridY;
 
-        gridX = Mathf.Round(transform.position.x / cellSize) * cellSize;
-        gridY = mRenderer.bounds.size.y / 2;
-        gridZ = Mathf.Round(transform.position.z / cellSize) * cellSize;
-        transform.position = new Vector3(gridX, gridY, gridZ);
-
+            gridX = Mathf.Round(transform.position.x / cellSize) * cellSize;
+            gridY = mRenderer.bounds.size.y / 2;
+            gridZ = Mathf.Round(transform.position.z / cellSize) * cellSize;
+            transform.position = new Vector3(gridX, gridY, gridZ);
+        }
     }
 
 
