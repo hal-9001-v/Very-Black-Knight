@@ -41,10 +41,9 @@ public class Game : MonoBehaviour
                 {
                     Debug.Log("End of Scene");
                     atEndTile.Invoke();
-                    return true;
                 }
 
-                return gt.tileEffects();
+                return true;
 
             }
         }
