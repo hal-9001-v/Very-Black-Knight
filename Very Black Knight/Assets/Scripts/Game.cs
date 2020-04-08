@@ -23,17 +23,17 @@ public class Game : MonoBehaviour
     List<Enemy> enemiesList;
 
     //List of floor tiles
-    GridTile[] tiles;
+    GridTilePro[] tiles;
 
     bool enemyTurn = true;
 
     public UnityEvent atEndTile;
 
     //This function is called to check wether floor tiles are next to the given coordinates, thus they are accessble
-    public bool canMakeMovement(float x, float y)
+    public bool playerCanMakeMovement(float x, float y)
     {
         //We have to check every floor tile we have
-        foreach (GridTile gt in tiles)
+        foreach (GridTilePro gt in tiles)
         {
             if (gt.movable(x, y))
             {
@@ -44,11 +44,40 @@ public class Game : MonoBehaviour
                 }
 
                 return true;
+
             }
         }
 
         return false;
     }
+
+    public bool enemyCanMakeMovement(float x, float y)
+    {
+        //We have to check every floor tile we have
+        foreach (GridTilePro gt in tiles)
+        {
+            /*if (gt.movable(x, y))
+            {
+                if (gt.endingTile)
+                {
+                    Debug.Log("End of Scene");
+                    atEndTile.Invoke();
+                    return true;
+                }
+
+                return gt.tileEffects();
+
+            }*/
+
+            if (gt.movable(x, y)) {
+                return true;
+            }
+
+        }
+
+        return false;
+    }
+
 
     void Awake()
     {
@@ -67,11 +96,11 @@ public class Game : MonoBehaviour
 
         //Tiles will be gotten from every gameObject whose tag is "tileTag"
         GameObject[] auxiliarGO = GameObject.FindGameObjectsWithTag(tileTag);
-        tiles = new GridTile[auxiliarGO.Length];
+        tiles = new GridTilePro[auxiliarGO.Length];
 
         for (int i = 0; i < tiles.Length; i++)
         {
-            tiles[i] = auxiliarGO[i].GetComponent<GridTile>();
+            tiles[i] = auxiliarGO[i].GetComponent<GridTilePro>();
         }
 
         Debug.Log("Current Tiles in the scene: " + tiles.Length);
@@ -80,7 +109,7 @@ public class Game : MonoBehaviour
         int startingTileCounter = 0;
 
         //This loop can be used to configure the scene
-        foreach (GridTile gt in tiles)
+        foreach (GridTilePro gt in tiles)
         {
             //Moving player to the starting point
             if (gt.startingTile)
@@ -93,6 +122,7 @@ public class Game : MonoBehaviour
                 playerObject.transform.position = aux;
 
             }
+
         }
 
         //There is only one Ending tile per Scene
@@ -132,7 +162,7 @@ public class Game : MonoBehaviour
 
     public GameObject getTile(Vector3 positionVector)
     {
-        foreach (GridTile gt in tiles)
+        foreach (GridTilePro gt in tiles)
         {
             if (gt.movable(positionVector.x, positionVector.z))
             {

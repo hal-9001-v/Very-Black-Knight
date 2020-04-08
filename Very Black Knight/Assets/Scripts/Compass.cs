@@ -54,7 +54,7 @@ public class Compass : MonoBehaviour
 
         foreach (GameObject go in goList)
         {
-            if (go.GetComponent<GridTile>().endingTile)
+            if (go.GetComponent<GridTilePro>().endingTile)
             {
                 endingTileObject = go;
             }
