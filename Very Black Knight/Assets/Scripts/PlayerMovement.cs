@@ -26,6 +26,8 @@ public class PlayerMovement : MonoBehaviour
 
     Vector3 direction;
 
+    public GridTilePro currentTile;
+
     public int inputCount { get; set; }
 
     void Awake()
@@ -36,6 +38,7 @@ public class PlayerMovement : MonoBehaviour
 
         MAXTIMETOREACH = 0.5f;
         timeToReach = MAXTIMETOREACH;
+
     }
 
     // Update is called once per frame
@@ -122,10 +125,44 @@ public class PlayerMovement : MonoBehaviour
             {
                 transform.position = newPosition;
                 doingMovement = false;
+                endOfMovementActions();
             }
 
 
         }
+    }
+
+    //Every Time a new gridTile is stepped, this function must be called
+    private void endOfMovementActions()
+    {
+        currentTile = game.getTile(transform.position).GetComponent<GridTilePro>();
+
+        //Push is an interpolation to a certain grid tile
+        if (currentTile.pushTile) {
+            startMovement(currentTile.pushTileObject.transform.position);
+            return;
+        }
+
+        //Hurt reduces health
+        if (currentTile.hurtTile) {
+            gameObject.GetComponent<Player>().hurt(currentTile.damage);
+            return;
+        }
+
+        //Teleportation is a sudden change of position
+        if (currentTile.teleportationTile) {
+            Vector3 auxiliarVector = currentTile.teleportationTileObject.transform.position;
+            auxiliarVector.y = gameObject.transform.position.y;
+
+            gameObject.transform.position = auxiliarVector;
+
+            currentTile = currentTile.teleportationTileObject.GetComponent<GridTilePro>();
+            
+            //Considering this is not a "movememnt" which calls endOfMovementFunction, it shall be called here so it is applied the new tile effect
+            endOfMovementActions();
+            return;
+        }
+
     }
 
     public bool canMakeMovement(float xMove, float zMove)
@@ -137,28 +174,33 @@ public class PlayerMovement : MonoBehaviour
         movementVector.z = Mathf.Round((transform.position.z + zMove * cellSize) / cellSize) * cellSize;
 
         //Start movement
-        if (game.canMakeMovement(movementVector.x, movementVector.z))
+        if (game.playerCanMakeMovement(movementVector.x, movementVector.z))
         {
-            //It is necesarry to store point B for Interpolation
-            startingPosition = transform.position;
-
-
-            //It is necesarry to store point B for Interpolation
-            newPosition = movementVector;
-
-            //We make sure the player's height is not the tile's height
-            newPosition.y = transform.position.y;
-
-            doingMovement = true;
-            timeCounter = 0;
-
-            direction = newPosition - startingPosition;
-
-            direction = Vector3.Normalize(direction);
-
+            startMovement(movementVector);
             return true;
         }
         return false;
+    }
+
+    public void startMovement(Vector3 movementVector)
+    {
+        //It is necesarry to store point B for Interpolation
+        startingPosition = transform.position;
+
+
+        //It is necesarry to store point B for Interpolation
+        newPosition = movementVector;
+
+        //We make sure the player's height is not the tile's height
+        newPosition.y = transform.position.y;
+
+        doingMovement = true;
+        timeCounter = 0;
+
+        direction = newPosition - startingPosition;
+
+        direction = Vector3.Normalize(direction);
+
     }
 
     public void setTimeToReach(float f)
@@ -167,4 +209,12 @@ public class PlayerMovement : MonoBehaviour
 
         timeToReach = f;
     }
+}
+
+public struct TileEffect
+{
+    public bool done;
+    public bool push;
+    public bool teleportation;
+    public Vector3 vectorValue;
 }

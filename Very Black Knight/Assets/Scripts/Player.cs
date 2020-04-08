@@ -28,8 +28,6 @@ public class Player : MonoBehaviour
     bool finishedTurn = false;
     bool playerActive = true;
 
-    private int inputCount;
-
     enum State
     {
         idle = 0,
@@ -138,7 +136,7 @@ public class Player : MonoBehaviour
         return finishedTurn;
     }
 
-    public void hurt(int dmg)
+    public void hurt(float dmg)
     {
         health -= dmg;
 
@@ -258,7 +256,7 @@ public class Player : MonoBehaviour
         upgrades = pd.upgradesLeft;
         movementLevel = pd.movementLevel;
         healthLevel = pd.healthLevel;
-        inputCount = pd.score;
+        movementScript.inputCount = pd.score;
         
         loadHealthLevel();
         loadMovementLevel();
@@ -279,7 +277,7 @@ public class Player : MonoBehaviour
         upgrades = 0;
         movementLevel = 1;
         healthLevel = 1;
-        inputCount = 0;
+        movementScript.inputCount = 0;
 
 
         myPlayerGUI.setMaxHealth(MAXHEALTH);
@@ -288,16 +286,13 @@ public class Player : MonoBehaviour
 
     private void saveData()
     {
-        inputCount += movementScript.inputCount;
-
-
         PlayerData pd = new PlayerData();
         pd.maxHealth = MAXHEALTH;
         pd.playerLevel = playerLevel;
         pd.upgradesLeft = upgrades;
         pd.movementLevel = movementLevel;
         pd.healthLevel = healthLevel;
-        pd.score = inputCount;
+        pd.score = movementScript.inputCount;
 
         pd.saveScoreJSON();
     }
