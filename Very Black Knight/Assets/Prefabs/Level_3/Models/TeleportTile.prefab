@@ -90,8 +90,8 @@ GameObject:
   - component: {fileID: 7904634998543234955}
   - component: {fileID: 6832276148310170445}
   m_Layer: 0
-  m_Name: Pavement (1736)
-  m_TagString: Untagged
+  m_Name: TeleportTile
+  m_TagString: tile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -128,6 +128,7 @@ MonoBehaviour:
   hurtTile: 0
   damage: 1
   teleportationTile: 1
+  tileEffectAfterTeleportation: 0
   teleportationTileObject: {fileID: 0}
   pushTile: 0
   pushTileObject: {fileID: 0}

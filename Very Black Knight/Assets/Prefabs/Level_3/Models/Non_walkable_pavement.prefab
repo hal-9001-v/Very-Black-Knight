@@ -89,7 +89,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8246840598309139362}
   - component: {fileID: 6050103014459790032}
-  - component: {fileID: 8689536933292009461}
   m_Layer: 0
   m_Name: Non_walkable_pavement
   m_TagString: Untagged
@@ -133,17 +132,3 @@ MonoBehaviour:
   ignoreSnapZ: 0
   scaleFactor: 0.9
   dimensions: {x: 1, y: 1}
---- !u!114 &8689536933292009461
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4911720804882481585}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e1877b386c896514bbb21cbcff76fbc1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  startingTile: 0
-  endingTile: 0

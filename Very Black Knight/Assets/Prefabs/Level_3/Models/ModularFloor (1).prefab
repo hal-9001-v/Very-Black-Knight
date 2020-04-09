@@ -9,10 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 349759387534023639}
-  - component: {fileID: 3061829981503024440}
+  - component: {fileID: -2823041507506385473}
   m_Layer: 0
   m_Name: ModularFloor (1)
-  m_TagString: Untagged
+  m_TagString: tile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -32,7 +32,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3061829981503024440
+--- !u!114 &-2823041507506385473
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,18 +41,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 3639402831351654852}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e2ba6ca3fd77b83459e18d214f3b3cd9, type: 3}
+  m_Script: {fileID: 11500000, guid: adec7d9d26034fe4abaa22204a7f9a6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startingTile: 0
+  endingTile: 0
+  hurtTile: 0
+  damage: 1
+  teleportationTile: 0
+  tileEffectAfterTeleportation: 0
+  teleportationTileObject: {fileID: 0}
+  pushTile: 0
+  pushTileObject: {fileID: 0}
   cellSize: 1
-  placeOnGrid: 1
-  touchingFloor: 1
-  scaleXToFitCell: 1
-  scaleZToFitCell: 1
-  ignoreSnapX: 0
-  ignoreSnapZ: 0
-  scaleFactor: 0.9
-  dimensions: {x: 1, y: 1}
+  scaleFactor: 1
 --- !u!1 &7101485260159634521
 GameObject:
   m_ObjectHideFlags: 0

@@ -49,6 +49,7 @@ MonoBehaviour:
   hurtTile: 0
   damage: 1
   teleportationTile: 0
+  tileEffectAfterTeleportation: 0
   teleportationTileObject: {fileID: 0}
   pushTile: 0
   pushTileObject: {fileID: 0}
