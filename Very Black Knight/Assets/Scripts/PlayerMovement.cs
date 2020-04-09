@@ -110,7 +110,7 @@ public class PlayerMovement : MonoBehaviour
         if (doingMovement)
         {
             //Divide by timeToReach implies it will take such time until arrival
-            timeCounter += Time.deltaTime / timeToReach;            
+            timeCounter += Time.deltaTime / timeToReach;
 
             transform.position = Vector3.Lerp(startingPosition, newPosition, timeCounter);
 
@@ -156,7 +156,10 @@ public class PlayerMovement : MonoBehaviour
             currentTile = currentTile.teleportationTileObject.GetComponent<GridTilePro>();
 
             //Considering this is not a "movememnt" which calls endOfMovementFunction, it shall be called here so it is applied the new tile effect
-            endOfMovementActions();
+            if (currentTile.tileEffectAfterTeleportation)
+            {
+                endOfMovementActions();
+            }
             return;
         }
 

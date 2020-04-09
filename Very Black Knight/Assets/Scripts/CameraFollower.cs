@@ -13,6 +13,9 @@ public class CameraFollower : MonoBehaviour
 
     Vector3 cameraOffset;
     Vector3 destination;
+
+    [Range(0.1f,5)]
+    public float speedFactor = 1;
     // Start is called before the first frame update
     void Start()
     {
