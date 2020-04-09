@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 750333998758669584}
   m_Layer: 0
   m_Name: Hurting Tile
-  m_TagString: Untagged
+  m_TagString: tile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1103690049948660677}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 25.191376, y: 8.563395, z: -25.208206}
+  m_LocalPosition: {x: 25, y: 0.18336901, z: -25}
   m_LocalScale: {x: 0.45, y: 1, z: 0.45}
   m_Children:
   - {fileID: 5864986710240531182}

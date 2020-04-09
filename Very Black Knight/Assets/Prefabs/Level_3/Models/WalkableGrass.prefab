@@ -11,11 +11,10 @@ GameObject:
   - component: {fileID: 1260317043326998665}
   - component: {fileID: 1227103112761429807}
   - component: {fileID: 1233989238633148461}
-  - component: {fileID: 8392771537291515551}
-  - component: {fileID: 6190484519119167643}
+  - component: {fileID: 7697701629965909739}
   m_Layer: 0
-  m_Name: wallEarth02
-  m_TagString: Untagged
+  m_Name: WalkableGrass
+  m_TagString: tile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -81,7 +80,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!114 &8392771537291515551
+--- !u!114 &7697701629965909739
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -90,29 +89,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 1258308842795682111}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e2ba6ca3fd77b83459e18d214f3b3cd9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cellSize: 1
-  placeOnGrid: 1
-  touchingFloor: 1
-  scaleXToFitCell: 1
-  scaleZToFitCell: 1
-  ignoreSnapX: 0
-  ignoreSnapZ: 0
-  scaleFactor: 0.9
-  dimensions: {x: 1, y: 1}
---- !u!114 &6190484519119167643
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1258308842795682111}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e1877b386c896514bbb21cbcff76fbc1, type: 3}
+  m_Script: {fileID: 11500000, guid: adec7d9d26034fe4abaa22204a7f9a6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   startingTile: 0
   endingTile: 0
+  hurtTile: 0
+  damage: 1
+  teleportationTile: 0
+  teleportationTileObject: {fileID: 0}
+  pushTile: 0
+  pushTileObject: {fileID: 0}
+  cellSize: 1
+  scaleFactor: 0.9

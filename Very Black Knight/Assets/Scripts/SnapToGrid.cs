@@ -40,7 +40,7 @@ public class SnapToGrid : MonoBehaviour
 
             if (mRenderer == null)
             {
-                Debug.LogError("Mesh Renderer Missing!");
+                Debug.LogError("Mesh Renderer Missing in :"+gameObject.name+" !");
             }
         }
 

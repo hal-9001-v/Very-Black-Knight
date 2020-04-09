@@ -10,8 +10,6 @@ public class Player : MonoBehaviour
 
     public bool loadFromDisk;
 
-    System.Diagnostics.Stopwatch timer;
-
     PlayerMovement movementScript;
     Animator myAnimator;
 
@@ -44,9 +42,6 @@ public class Player : MonoBehaviour
         myAnimator = gameObject.GetComponent<Animator>();
 
         myPlayerGUI = playerGuiObject.GetComponent<PlayerGUI>();
-
-        timer = new System.Diagnostics.Stopwatch();
-        timer.Start();
 
         if (movementScript == null)
         {

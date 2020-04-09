@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-
 //Author: Vic
 //Game class is made to link elements within the game. Thus, it can  be used to modify many elements.
 
@@ -35,6 +34,8 @@ public class Game : MonoBehaviour
         //We have to check every floor tile we have
         foreach (GridTilePro gt in tiles)
         {
+
+
             if (gt.movable(x, y))
             {
                 if (gt.endingTile)
@@ -101,6 +102,10 @@ public class Game : MonoBehaviour
         for (int i = 0; i < tiles.Length; i++)
         {
             tiles[i] = auxiliarGO[i].GetComponent<GridTilePro>();
+
+            if (tiles[i] == null) {
+                Debug.LogError("NULL: "+auxiliarGO[i].name);
+            }
         }
 
         Debug.Log("Current Tiles in the scene: " + tiles.Length);
@@ -111,17 +116,17 @@ public class Game : MonoBehaviour
         //This loop can be used to configure the scene
         foreach (GridTilePro gt in tiles)
         {
-            //Moving player to the starting point
-            if (gt.startingTile)
-            {
-                startingTileCounter++;
+                //Moving player to the starting point
+                if (gt.startingTile)
+                {
+                    startingTileCounter++;
 
-                Vector3 aux = gt.transform.position;
-                aux.y = playerObject.transform.position.y;
+                    Vector3 aux = gt.transform.position;
+                    aux.y = playerObject.transform.position.y;
 
-                playerObject.transform.position = aux;
+                    playerObject.transform.position = aux;
 
-            }
+                }
 
         }
 

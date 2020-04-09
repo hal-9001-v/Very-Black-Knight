@@ -10,10 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 349759387534023639}
   - component: {fileID: 3061829981503024440}
-  - component: {fileID: 2739661661887356378}
   m_Layer: 0
   m_Name: ModularFloor (1)
-  m_TagString: tile
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -26,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3639402831351654852}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 15.191376, y: 8.508384, z: 5.791794}
+  m_LocalPosition: {x: 15, y: 0.1283583, z: 6}
   m_LocalScale: {x: 0.45, y: 0.7, z: 0.45}
   m_Children:
   - {fileID: 7832964274506991855}
@@ -54,20 +53,6 @@ MonoBehaviour:
   ignoreSnapZ: 0
   scaleFactor: 0.9
   dimensions: {x: 1, y: 1}
---- !u!114 &2739661661887356378
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3639402831351654852}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e1877b386c896514bbb21cbcff76fbc1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  startingTile: 0
-  endingTile: 0
 --- !u!1 &7101485260159634521
 GameObject:
   m_ObjectHideFlags: 0

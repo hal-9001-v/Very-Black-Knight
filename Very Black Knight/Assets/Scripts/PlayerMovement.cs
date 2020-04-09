@@ -30,7 +30,7 @@ public class PlayerMovement : MonoBehaviour
 
     public int inputCount { get; set; }
 
-    void Awake()
+    void Start()
     {
         gameContainerObject = GameObject.Find("GameController");
         game = gameContainerObject.GetComponent<Game>();
@@ -117,7 +117,8 @@ public class PlayerMovement : MonoBehaviour
         if (doingMovement)
         {
             //Divide by timeToReach implies it will take such time until arrival
-            timeCounter += Time.deltaTime / timeToReach;
+            timeCounter += Time.deltaTime / timeToReach;            
+
             transform.position = Vector3.Lerp(startingPosition, newPosition, timeCounter);
 
             //Aproximating to the point
