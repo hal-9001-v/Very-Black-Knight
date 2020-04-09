@@ -1,29 +1,43 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using Priority_Queue;
 public class DragonScript : Enemy
 {
-    private int currentState = 0;
+    //Objects
     GameObject player;
-    bool readyForNextTurn = true;
-
-    List<GameObject> attackTiles;
     List<Vector2> movementList;
+    Animator myAnimator;
 
+    //Booleans
+    bool readyForNextTurn = true;
     bool delay = false;
+
+    //Floats
     float waitTime;
     float currentTime;
-
     float baseTimeToReach;
 
+    //Integers
+    private int currentState = 0;
+    
     enum State
     {
         idle = 0,
         walking = 1
     }
 
-    public override void startTurn()
+    void Start()
+    {
+        player = GameObject.FindGameObjectWithTag("player");
+        myAnimator = gameObject.GetComponent<Animator>();
+
+        movementList = new List<Vector2>();
+
+        baseTimeToReach = timeToReach;
+
+        _initialize();
+    }
+
+    public override void _startTurn()
     {
         if (readyForNextTurn)
         {
@@ -80,8 +94,6 @@ public class DragonScript : Enemy
 
                     }
 
-
-
                     break;
 
                 //Walking
@@ -92,7 +104,7 @@ public class DragonScript : Enemy
             }
         }
     }
-    public override void endOfMovementActions()
+    public override void _endOfMovementActions()
     {
         readyForNextTurn = true;
         currentState = (int)State.idle;
@@ -107,7 +119,7 @@ public class DragonScript : Enemy
         //Run over all possible movement tiles 
         foreach (Vector2 movement in movementList)
         {
-            if (canMakeMovement(movement.x, movement.y))
+            if (_canMakeMovement(movement.x, movement.y))
             {
                 if (movement.x > 0) transform.eulerAngles = new Vector3(0, 90, 0);
                 else if (movement.x < 0) transform.eulerAngles = new Vector3(0, -90, 0);
@@ -143,71 +155,18 @@ public class DragonScript : Enemy
         }
 
         attackTiles.Clear();
-        Vector3 auxiliarVector;
-
-        auxiliarVector = transform.position;
-        attackTiles.Add(game.getTile(auxiliarVector));
-
+        
+        
         //Check if tiles in default position exists and if so, add them to the tiles under attack list
-        if (tileExists(1, 0))
-        {
-            auxiliarVector = transform.position;
-            auxiliarVector.x += cellSize;
-            attackTiles.Add(game.getTile(auxiliarVector));
-        }
-
-        if (tileExists(-1, 0))
-        {
-            auxiliarVector = transform.position;
-            auxiliarVector.x -= cellSize;
-            attackTiles.Add(game.getTile(auxiliarVector));
-        }
-
-        if (tileExists(0, 1))
-        {
-            auxiliarVector = transform.position;
-            auxiliarVector.z += cellSize;
-            attackTiles.Add(game.getTile(auxiliarVector));
-        }
-
-        if (tileExists(0, -1))
-        {
-            auxiliarVector = transform.position;
-            auxiliarVector.z -= cellSize;
-            attackTiles.Add(game.getTile(auxiliarVector));
-        }
-
-        if (tileExists(1, 1))
-        {
-            auxiliarVector = transform.position;
-            auxiliarVector.x += cellSize;
-            auxiliarVector.z += cellSize;
-            attackTiles.Add(game.getTile(auxiliarVector));
-        }
-
-        if (tileExists(-1, 1))
-        {
-            auxiliarVector = transform.position;
-            auxiliarVector.x -= cellSize;
-            auxiliarVector.z += cellSize;
-            attackTiles.Add(game.getTile(auxiliarVector));
-        }
-
-        if (tileExists(1, -1))
-        {
-            auxiliarVector = transform.position;
-            auxiliarVector.x += cellSize;
-            auxiliarVector.z -= cellSize;
-            attackTiles.Add(game.getTile(auxiliarVector));
-        }
-
-        if (tileExists(-1, -1))
-        {
-            auxiliarVector = transform.position;
-            auxiliarVector.x -= cellSize;
-            auxiliarVector.z -= cellSize;
-            attackTiles.Add(game.getTile(auxiliarVector));
-        }
+        _addTileToAttackList(0, 0);
+        _addTileToAttackList(1, 0);
+        _addTileToAttackList(-1, 0);
+        _addTileToAttackList(0, 1);
+        _addTileToAttackList(0, -1);
+        _addTileToAttackList(1, 1);
+        _addTileToAttackList(-1, 1);
+        _addTileToAttackList(1, -1);
+        _addTileToAttackList(-1, -1);
 
         //Paint in red all tiles under Attack
         foreach (GameObject tile in attackTiles)
@@ -225,19 +184,6 @@ public class DragonScript : Enemy
 
     }
 
-    void Start()
-    {
-        player = GameObject.FindGameObjectWithTag("player");
-
-        movementList = new List<Vector2>();
-        
-        baseTimeToReach = timeToReach;
-
-        initialize();
-
-        attackTiles = new List<GameObject>();
-    }
-
     void Update()
     {
         delayFunction();
@@ -246,7 +192,7 @@ public class DragonScript : Enemy
     // Update is called once per frame
     void FixedUpdate()
     {
-        makeMovement();
+        _makeMovement();
     }
 
     //In t milliseconds, readyForNextTurn will be trye
@@ -289,5 +235,4 @@ public class DragonScript : Enemy
         return false;
 
     }
-
 }

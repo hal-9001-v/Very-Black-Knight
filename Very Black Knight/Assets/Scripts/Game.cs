@@ -152,7 +152,7 @@ public class Game : MonoBehaviour
     {
         foreach (Enemy enemyScript in enemiesList)
         {
-            enemyScript.startTurn();
+            enemyScript._startTurn();
 
             yield return 0;
         }

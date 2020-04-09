@@ -1,12 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class Enemy : MonoBehaviour
 {
     protected float cellSize;
     protected Game game;
-    protected Animator myAnimator;
 
     public float timeToReach;
     float timeCounter;
@@ -21,16 +19,17 @@ public abstract class Enemy : MonoBehaviour
     Vector3 newPosition;
     Vector3 direction;
 
+    protected List<GameObject> attackTiles;
 
-    public abstract void startTurn();
-    public abstract void endOfMovementActions();
+    public abstract void _startTurn();
+    public abstract void _endOfMovementActions();
 
-    protected void initialize()
+    protected void _initialize()
     {
         game = GameObject.Find("GameController").GetComponent<Game>();
-        cellSize = game.cellSize;
+        attackTiles = new List<GameObject>();
 
-        myAnimator = gameObject.GetComponent<Animator>();
+        cellSize = game.cellSize;
 
         floorColor = new Color(1, 0, 0);
         attackColor = new Color(0.5f, 0, 0);
@@ -47,7 +46,22 @@ public abstract class Enemy : MonoBehaviour
 
     }
 
-    protected bool canMakeMovement(float xMove, float zMove)
+    protected void _addTileToAttackList(int x, int z)
+    {
+        if (_tileExistsLocal(x, z))
+        {
+            Vector3 auxiliarVector;
+
+            auxiliarVector = transform.position;
+            auxiliarVector.x += cellSize * x;
+            auxiliarVector.z += cellSize * z;
+    
+            attackTiles.Add(game.getTile(auxiliarVector));
+        }
+
+    }
+
+    protected bool _canMakeMovement(float xMove, float zMove)
     {
         if (!doingMovement)
         {
@@ -70,7 +84,7 @@ public abstract class Enemy : MonoBehaviour
                 //We make sure the player's height is not the tile's height
                 newPosition.y = transform.position.y;
 
-                colorFloor(newPosition);
+                _applyColorToFloor(newPosition);
 
 
                 doingMovement = true;
@@ -88,7 +102,7 @@ public abstract class Enemy : MonoBehaviour
     }
 
     //Fixed Update
-    protected void makeMovement()
+    protected void _makeMovement()
     {
         //Movement on the player are done if dointMovement is true
         if (doingMovement)
@@ -103,14 +117,14 @@ public abstract class Enemy : MonoBehaviour
                 transform.position = newPosition;
                 doingMovement = false;
 
-                endOfMovementActions();
+                _endOfMovementActions();
 
             }
         }
     }
 
     //Checks wether a tile exists in current position + (x,y)*cellSize on grid
-    protected bool tileExists(float x, float y)
+    protected bool _tileExistsLocal(float x, float y)
     {
         Vector2 auxiliarVector = new Vector2();
 
@@ -122,7 +136,7 @@ public abstract class Enemy : MonoBehaviour
 
     }
 
-    void colorFloor(Vector3 positionVector)
+    void _applyColorToFloor(Vector3 positionVector)
     {
         MeshRenderer mr;
 
