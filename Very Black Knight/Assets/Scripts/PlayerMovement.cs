@@ -36,7 +36,7 @@ public class PlayerMovement : MonoBehaviour
         game = gameContainerObject.GetComponent<Game>();
         cellSize = game.cellSize;
 
-        MAXTIMETOREACH = 0.5f;
+        MAXTIMETOREACH = 0.35f;
         timeToReach = MAXTIMETOREACH;
 
     }
@@ -50,10 +50,8 @@ public class PlayerMovement : MonoBehaviour
         {
 
             //Forward
-            if (Input.GetKeyDown(KeyCode.UpArrow) | Input.GetKeyDown(KeyCode.W))
+            if (Input.GetKey(KeyCode.UpArrow) | Input.GetKeyDown(KeyCode.W))
             {
-                //Debug.Log("Up or W key was pressed");
-
                 if (canMakeMovement(1, 0))
                 {
                     gameObject.transform.eulerAngles = new Vector3(0, 90, 0);
@@ -64,9 +62,8 @@ public class PlayerMovement : MonoBehaviour
             }
 
             //BackWard
-            if (Input.GetKeyDown(KeyCode.DownArrow) | Input.GetKeyDown(KeyCode.S))
+            if (Input.GetKey(KeyCode.DownArrow) | Input.GetKeyDown(KeyCode.S))
             {
-
                 if (canMakeMovement(-1, 0))
                 {
                     gameObject.transform.eulerAngles = new Vector3(0, -90, 0);
@@ -77,10 +74,8 @@ public class PlayerMovement : MonoBehaviour
             }
 
             //Right
-            if (Input.GetKeyDown(KeyCode.RightArrow) | Input.GetKeyDown(KeyCode.D))
+            if (Input.GetKey(KeyCode.RightArrow) | Input.GetKeyDown(KeyCode.D))
             {
-                //Debug.Log("Right or D key was pressed");
-
                 if (canMakeMovement(0, -1))
                 {
                     gameObject.transform.eulerAngles = new Vector3(0, 180, 0);
@@ -92,10 +87,8 @@ public class PlayerMovement : MonoBehaviour
             }
 
             //Left
-            if (Input.GetKeyDown(KeyCode.LeftArrow) | Input.GetKeyDown(KeyCode.A))
+            if (Input.GetKey(KeyCode.LeftArrow) | Input.GetKeyDown(KeyCode.A))
             {
-                //Debug.Log("Left or A key was pressed");
-
                 if (canMakeMovement(0, 1))
                 {
                     gameObject.transform.eulerAngles = new Vector3(0, 0, 0);
@@ -138,26 +131,29 @@ public class PlayerMovement : MonoBehaviour
         currentTile = game.getTile(transform.position).GetComponent<GridTilePro>();
 
         //Push is an interpolation to a certain grid tile
-        if (currentTile.pushTile) {
+        if (currentTile.pushTile)
+        {
             startMovement(currentTile.pushTileObject.transform.position);
             return;
         }
 
         //Hurt reduces health
-        if (currentTile.hurtTile) {
+        if (currentTile.hurtTile)
+        {
             gameObject.GetComponent<Player>().hurt(currentTile.damage);
             return;
         }
 
         //Teleportation is a sudden change of position
-        if (currentTile.teleportationTile) {
+        if (currentTile.teleportationTile)
+        {
             Vector3 auxiliarVector = currentTile.teleportationTileObject.transform.position;
             auxiliarVector.y = gameObject.transform.position.y;
 
             gameObject.transform.position = auxiliarVector;
 
             currentTile = currentTile.teleportationTileObject.GetComponent<GridTilePro>();
-            
+
             //Considering this is not a "movememnt" which calls endOfMovementFunction, it shall be called here so it is applied the new tile effect
             endOfMovementActions();
             return;

@@ -27951,6 +27951,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3222834229622769757, guid: b1e738e23df9d9b489daea439e10f89a,
+        type: 3}
+      propertyPath: timeToReach
+      value: 0.3
+      objectReference: {fileID: 0}
     - target: {fileID: 7684876782494846191, guid: b1e738e23df9d9b489daea439e10f89a,
         type: 3}
       propertyPath: playerGuiObject
@@ -31822,7 +31827,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: EndingnormalTile
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2098232923607080125, guid: c3506a77e60807841bd06bfa1ac5a1c5, type: 3}
+    - {fileID: 620771191994698678, guid: c3506a77e60807841bd06bfa1ac5a1c5, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: c3506a77e60807841bd06bfa1ac5a1c5, type: 3}
 --- !u!4 &1047508392 stripped
 Transform:
@@ -50141,6 +50148,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 996810340}
     m_Modifications:
+    - target: {fileID: 476095482477814752, guid: 7a20c9b1242089a448186cfdd8c953a6,
+        type: 3}
+      propertyPath: startingTile
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5391320273978576785, guid: 7a20c9b1242089a448186cfdd8c953a6,
         type: 3}
       propertyPath: m_Name
@@ -58091,6 +58103,34 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1467291846}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1900595150 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2819193413676936736, guid: c3506a77e60807841bd06bfa1ac5a1c5,
+    type: 3}
+  m_PrefabInstance: {fileID: 1047023500}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1900595151
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1900595150}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adec7d9d26034fe4abaa22204a7f9a6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startingTile: 0
+  endingTile: 1
+  hurtTile: 0
+  damage: 1
+  teleportationTile: 0
+  teleportationTileObject: {fileID: 0}
+  pushTile: 0
+  pushTileObject: {fileID: 0}
+  cellSize: 1
+  scaleFactor: 1
 --- !u!1001 &1901928282
 PrefabInstance:
   m_ObjectHideFlags: 0
