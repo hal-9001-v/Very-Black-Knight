@@ -14008,12 +14008,12 @@ PrefabInstance:
     - target: {fileID: 2559660178349584107, guid: b1e738e23df9d9b489daea439e10f89a,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.2
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 2559660178349584107, guid: b1e738e23df9d9b489daea439e10f89a,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -16.051
+      value: -16
       objectReference: {fileID: 0}
     - target: {fileID: 2559660178349584107, guid: b1e738e23df9d9b489daea439e10f89a,
         type: 3}
@@ -26140,6 +26140,11 @@ PrefabInstance:
       propertyPath: timeToReach
       value: 0.25
       objectReference: {fileID: 0}
+    - target: {fileID: 1165864116295064351, guid: ace6eab27b4979540ab502f4f3b727f7,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4922642115735019602, guid: ace6eab27b4979540ab502f4f3b727f7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -32704,6 +32709,7 @@ MonoBehaviour:
   hurtTile: 0
   damage: 1
   teleportationTile: 0
+  tileEffectAfterTeleportation: 0
   teleportationTileObject: {fileID: 0}
   pushTile: 0
   pushTileObject: {fileID: 0}
@@ -87426,6 +87432,16 @@ PrefabInstance:
     - target: {fileID: 8136239241016114189, guid: 8809a36295c42504ca77badd92a0efd5,
         type: 3}
       propertyPath: targetContainerObject
+      value: 
+      objectReference: {fileID: 566158335}
+    - target: {fileID: 8136239241016114189, guid: 8809a36295c42504ca77badd92a0efd5,
+        type: 3}
+      propertyPath: speedFactor
+      value: 2.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 8136239241016114189, guid: 8809a36295c42504ca77badd92a0efd5,
+        type: 3}
+      propertyPath: playerObject
       value: 
       objectReference: {fileID: 566158335}
     - target: {fileID: 8136239241016114190, guid: 8809a36295c42504ca77badd92a0efd5,
