@@ -18,6 +18,7 @@ public class GridTilePro : MonoBehaviour
     public float damage = 1;
     
     public bool teleportationTile = false;
+    public bool tileEffectAfterTeleportation = false;
     public GameObject teleportationTileObject;
     
 
