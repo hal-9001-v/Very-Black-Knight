@@ -30,6 +30,15 @@ public class PlayerMovement : MonoBehaviour
 
     public int inputCount { get; set; }
 
+    //Player Movement Vectors
+    Vector3 FWVector = new Vector3(1,0,0);
+    Vector3 BWVector = new Vector3(-1,0,0);
+    Vector3 RVector = new Vector3(0,0,-1);
+    Vector3 LVector = new Vector3(0,0,1);
+
+    bool newDirections = false;
+    Quaternion newRotation;
+
     void Start()
     {
         gameContainerObject = GameObject.Find("GameController");
@@ -48,13 +57,19 @@ public class PlayerMovement : MonoBehaviour
         //Movement Input is only possible if the object is not moving
         if (!doingMovement && inputEnable)
         {
+            bool keyPressed = false;
+
 
             //Forward
-            if (Input.GetKey(KeyCode.UpArrow) | Input.GetKeyDown(KeyCode.W))
+            if (Input.GetKey(KeyCode.W) | Input.GetKeyDown(KeyCode.UpArrow))
             {
-                if (canMakeMovement(1, 0))
+                keyPressed = true;
+                if (canMakeMovement(FWVector.x, FWVector.z))
                 {
-                    gameObject.transform.eulerAngles = new Vector3(0, 90, 0);
+                    Vector3 newRotation = Quaternion.LookRotation(FWVector).eulerAngles;
+                    
+                    transform.eulerAngles = newRotation;
+
                     inputCount++;
                     return true;
                 }
@@ -62,11 +77,15 @@ public class PlayerMovement : MonoBehaviour
             }
 
             //BackWard
-            if (Input.GetKey(KeyCode.DownArrow) | Input.GetKeyDown(KeyCode.S))
+            if (Input.GetKey(KeyCode.S) | Input.GetKeyDown(KeyCode.DownArrow))
             {
-                if (canMakeMovement(-1, 0))
+                keyPressed = true;
+                if (canMakeMovement(BWVector.x, BWVector.z))
                 {
-                    gameObject.transform.eulerAngles = new Vector3(0, -90, 0);
+                    Vector3 newRotation = Quaternion.LookRotation(BWVector).eulerAngles;
+                    
+                    transform.eulerAngles = newRotation;
+
                     inputCount++;
                     return true;
                 }
@@ -74,30 +93,42 @@ public class PlayerMovement : MonoBehaviour
             }
 
             //Right
-            if (Input.GetKey(KeyCode.RightArrow) | Input.GetKeyDown(KeyCode.D))
+            if (Input.GetKey(KeyCode.D) | Input.GetKeyDown(KeyCode.RightArrow))
             {
-                if (canMakeMovement(0, -1))
+                keyPressed = true;
+                if (canMakeMovement(RVector.x, RVector.z))
                 {
-                    gameObject.transform.eulerAngles = new Vector3(0, 180, 0);
+                    Vector3 newRotation = Quaternion.LookRotation(RVector).eulerAngles;
+                  
+                    transform.eulerAngles = newRotation;
+
                     inputCount++;
                     return true;
                 }
-
 
             }
 
             //Left
-            if (Input.GetKey(KeyCode.LeftArrow) | Input.GetKeyDown(KeyCode.A))
+            if (Input.GetKey(KeyCode.A) | Input.GetKeyDown(KeyCode.LeftArrow))
             {
-                if (canMakeMovement(0, 1))
+                keyPressed = true;
+                if (canMakeMovement(LVector.x, LVector.z))
                 {
-                    gameObject.transform.eulerAngles = new Vector3(0, 0, 0);
+                    Vector3 newRotation = Quaternion.LookRotation(LVector).eulerAngles;
+                    
+                    transform.eulerAngles = newRotation;
+
                     inputCount++;
                     return true;
                 }
             }
 
+            //New redirection is only applied when player is not pressing any key
+            if (!keyPressed)
+                rotateDirections();
+
         }
+
 
         return false;
 
@@ -121,7 +152,6 @@ public class PlayerMovement : MonoBehaviour
                 doingMovement = false;
                 endOfMovementActions();
             }
-
 
         }
     }
@@ -208,6 +238,23 @@ public class PlayerMovement : MonoBehaviour
         if (f < 0 || f > MAXTIMETOREACH) return;
 
         timeToReach = f;
+    }
+
+    private void rotateDirections() {
+
+        if (newDirections)
+        {
+            FWVector = newRotation * FWVector;
+            BWVector = newRotation * BWVector;
+            RVector = newRotation * RVector;
+            LVector = newRotation * LVector;
+            newDirections = false;
+        }
+    }
+
+    public void setNewDirections(Quaternion rotate) {
+        newDirections = true;
+        newRotation = rotate;
     }
 }
 
