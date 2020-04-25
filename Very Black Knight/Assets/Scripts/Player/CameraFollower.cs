@@ -13,6 +13,8 @@ public class CameraFollower : MonoBehaviour
     Vector3 cameraOffset;
     Vector3 destination;
 
+    bool makingRotation = false;
+
     [Range(0.1f, 5)]
     public float speedFactor = 1;
     // Start is called before the first frame update
@@ -36,6 +38,7 @@ public class CameraFollower : MonoBehaviour
             
 
             movementScript.setNewDirections(rotation);
+            makingRotation = true;
         }else
         if (Input.GetKeyDown(KeyCode.E))
         {
@@ -43,7 +46,9 @@ public class CameraFollower : MonoBehaviour
             cameraOffset = rotation * cameraOffset;
             
             movementScript.setNewDirections(rotation);
+            makingRotation = true;
         }
+
 
         //Moves on camera are interpolations. Destination variable is the "locked" place for the camera
         destination = target.transform.position + cameraOffset;

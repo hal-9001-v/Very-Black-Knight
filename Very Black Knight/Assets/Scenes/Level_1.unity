@@ -18969,6 +18969,16 @@ PrefabInstance:
       propertyPath: targetContainerObject
       value: 
       objectReference: {fileID: 1361155416}
+    - target: {fileID: 8136239241016114189, guid: 8809a36295c42504ca77badd92a0efd5,
+        type: 3}
+      propertyPath: playerObject
+      value: 
+      objectReference: {fileID: 1361155416}
+    - target: {fileID: 8136239241016114189, guid: 8809a36295c42504ca77badd92a0efd5,
+        type: 3}
+      propertyPath: speedFactor
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 8136239241016114190, guid: 8809a36295c42504ca77badd92a0efd5,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -58126,6 +58136,7 @@ MonoBehaviour:
   hurtTile: 0
   damage: 1
   teleportationTile: 0
+  tileEffectAfterTeleportation: 0
   teleportationTileObject: {fileID: 0}
   pushTile: 0
   pushTileObject: {fileID: 0}
