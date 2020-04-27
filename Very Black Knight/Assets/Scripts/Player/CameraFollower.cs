@@ -13,6 +13,8 @@ public class CameraFollower : MonoBehaviour
     Vector3 cameraOffset;
     Vector3 destination;
 
+    bool doingRotation = false;
+
     [Range(0.1f, 5)]
     public float speedFactor = 1;
     // Start is called before the first frame update
@@ -33,25 +35,29 @@ public class CameraFollower : MonoBehaviour
         {
             Quaternion rotation = Quaternion.Euler(0, 90, 0);
             cameraOffset = rotation * cameraOffset;
-            
+            destination = target.transform.position + cameraOffset;
 
             movementScript.setNewDirections(rotation);
+        
         }else
         if (Input.GetKeyDown(KeyCode.E))
         {
             Quaternion rotation = Quaternion.Euler(0,  270, 0);
             cameraOffset = rotation * cameraOffset;
-            
+            destination = target.transform.position + cameraOffset;
+
             movementScript.setNewDirections(rotation);
+            
         }
 
+        if(!doingRotation)
         //Moves on camera are interpolations. Destination variable is the "locked" place for the camera
         destination = target.transform.position + cameraOffset;
-        
-        //Smooth Look At
-        Quaternion smoothRotation = Quaternion.LookRotation(target.position - transform.position);
-        transform.rotation = Quaternion.Slerp(transform.rotation, smoothRotation, speedFactor*Time.deltaTime);
 
+           //Smooth Look At
+            Quaternion smoothRotation = Quaternion.LookRotation(target.position - transform.position);
+            transform.rotation = Quaternion.Slerp(transform.rotation, smoothRotation, speedFactor * Time.deltaTime);
+        
 
         //If camera is close enough to destination, interpolation stops
         if (Vector3.Distance(destination, transform.position) > 0.1)
