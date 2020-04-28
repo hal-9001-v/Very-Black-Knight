@@ -65,6 +65,12 @@ public class Player : MonoBehaviour
         {
             setData();
         }
+
+        Debug.Log("HP: " + health);
+        Debug.Log("Movement: " + movementScript.timeToReach);
+        Debug.Log("HP LVL: " + healthLevel);
+        Debug.Log("MOVEMENT LVL: " + movementLevel);
+        Debug.Log("Input Count: "+movementScript.inputCount);
     }
 
     // Update is called once per frame
@@ -117,7 +123,8 @@ public class Player : MonoBehaviour
 
     }
 
-    IEnumerator restartScene() {
+    IEnumerator restartScene()
+    {
         yield return new WaitForSeconds(2);
 
         UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex);
@@ -205,17 +212,42 @@ public class Player : MonoBehaviour
 
     private void loadMovementLevel()
     {
+        if (movementLevel == 1) {
+            movementScript.setTimeToReach(0.5f);
+        }
+        else
         if (movementLevel == 2)
         {
             movementScript.setTimeToReach(0.4f);
 
         }
+        else if (movementLevel == 3)
+        {
+            movementScript.setTimeToReach(0.3f);
+
+        }
     }
     private void loadHealthLevel()
     {
-        if (movementLevel == 2)
+        if (healthLevel == 1)
         {
-            MAXHEALTH += 2;
+            MAXHEALTH = 5;
+            health = MAXHEALTH;
+
+            myPlayerGUI.setMaxHealth(MAXHEALTH);
+
+        }
+        else if (healthLevel == 2)
+        {
+            MAXHEALTH = 7;
+            health = MAXHEALTH;
+
+            myPlayerGUI.setMaxHealth(MAXHEALTH);
+
+        }
+        else if (healthLevel == 3)
+        {
+            MAXHEALTH = 9;
             health = MAXHEALTH;
 
             myPlayerGUI.setMaxHealth(MAXHEALTH);
@@ -252,7 +284,7 @@ public class Player : MonoBehaviour
         movementLevel = pd.movementLevel;
         healthLevel = pd.healthLevel;
         movementScript.inputCount = pd.score;
-        
+
         loadHealthLevel();
         loadMovementLevel();
 

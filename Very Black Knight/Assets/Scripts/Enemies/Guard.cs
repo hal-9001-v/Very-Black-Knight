@@ -16,15 +16,6 @@ public class Guard : Enemy
     float currentTime;
     float baseTimeToReach;
 
-    //Integers
-    private int currentState = 0;
-
-    enum State
-    {
-        idle = 0,
-        walking = 1
-    }
-
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("player");
@@ -41,82 +32,160 @@ public class Guard : Enemy
     {
         if (readyForNextTurn)
         {
-            if (hurt())
+            readyForNextTurn = false;
+
+            if (Vector3.Distance(transform.position, player.transform.position) < 20)
             {
-                readyForNextTurn = false;
-                currentState = (int)State.idle;
-                resetTurnIn(2f);
-                return;
+                timeToReach = baseTimeToReach;
+            }
+            else
+            {
+                timeToReach = baseTimeToReach * 2;
             }
 
-            switch (currentState)
-            {
-                //Idle
-                case 0:
+            bool attackIsDone = attack();
+            if (attackIsDone) return;
 
-                    if (Vector3.Distance(transform.position, player.transform.position) < 20)
-                    {
-                        timeToReach = baseTimeToReach;
-                    }
-                    else
-                    {
-                        timeToReach = baseTimeToReach * 2;
-                    }
+            calculateMovements();
+            tryToMakeMovement();
 
-                    movementList.Clear();
-
-                    //Decide movement
-                    if (player.transform.position.x > transform.position.x)
-                    {
-                        movementList.Add(new Vector2Int(1, 0));
-                    }
-                    if (player.transform.position.z > transform.position.z)
-                    {
-                        movementList.Add(new Vector2Int(0, 1));
-
-                    }
-                    if (player.transform.position.x < transform.position.x)
-                    {
-                        movementList.Add(new Vector2Int(-1, 0));
-
-                    }
-                    if (player.transform.position.z < transform.position.z)
-                    {
-                        movementList.Add(new Vector2Int(0, -1));
-                    }
-
-
-                    if (runMoveList())
-                    {
-                        currentState = (int)State.walking;
-                        myAnimator.SetBool("walking", true);
-                        readyForNextTurn = false;
-
-                    }
-
-                    break;
-
-                //Walking
-                case 1:
-                    // Look at endOfMovement() due to synchronization 
-
-                    break;
-            }
         }
     }
+
     public override void _endOfMovementActions()
     {
         readyForNextTurn = true;
-        currentState = (int)State.idle;
         myAnimator.SetBool("walking", false);
 
     }
 
-    private bool runMoveList()
+    private void calculateMovements()
+    {
+        setMovementList(Random.Range(0,3));
+
+    }
+
+    void setMovementList(int i) {
+
+        movementList.Clear();
+
+        if (i == 0)
+        {
+            
+
+            //Decide movement
+            if (player.transform.position.x > transform.position.x)
+            {
+                movementList.Add(new Vector2Int(1, 0));
+            }
+
+            if (player.transform.position.z > transform.position.z)
+            {
+                movementList.Add(new Vector2Int(0, 1));
+            }
+
+            if (player.transform.position.x < transform.position.x)
+            {
+                movementList.Add(new Vector2Int(-1, 0));
+            }
+
+            if (player.transform.position.z < transform.position.z)
+            {
+                movementList.Add(new Vector2Int(0, -1));
+            }
+        }
+
+
+        if (i == 1)
+        {
+            //Decide movement
+            if (player.transform.position.z > transform.position.z)
+            {
+                movementList.Add(new Vector2Int(0, 1));
+            }
+
+            if (player.transform.position.x > transform.position.x)
+            {
+                movementList.Add(new Vector2Int(1, 0));
+            }
+
+            
+            if (player.transform.position.x < transform.position.x)
+            {
+                movementList.Add(new Vector2Int(-1, 0));
+            }
+
+            if (player.transform.position.z < transform.position.z)
+            {
+                movementList.Add(new Vector2Int(0, -1));
+            }
+
+        }
+
+        if (i == 2)
+        {
+            //Decide movement
+            if (player.transform.position.z < transform.position.z)
+            {
+                movementList.Add(new Vector2Int(0, -1));
+            }
+
+
+            if (player.transform.position.z > transform.position.z)
+            {
+                movementList.Add(new Vector2Int(0, 1));
+            }
+
+            
+            if (player.transform.position.x > transform.position.x)
+            {
+                movementList.Add(new Vector2Int(1, 0));
+            }
+
+
+            if (player.transform.position.x < transform.position.x)
+            {
+                movementList.Add(new Vector2Int(-1, 0));
+            }
+
+
+        }
+
+        if (i == 3)
+        {
+            //Decide movement
+            if (player.transform.position.x < transform.position.x)
+            {
+                movementList.Add(new Vector2Int(-1, 0));
+            }
+
+
+            if (player.transform.position.z < transform.position.z)
+            {
+                movementList.Add(new Vector2Int(0, -1));
+            }
+
+
+            if (player.transform.position.z > transform.position.z)
+            {
+                movementList.Add(new Vector2Int(0, 1));
+            }
+
+            
+            if (player.transform.position.x > transform.position.x)
+            {
+                movementList.Add(new Vector2Int(1, 0));
+            }
+
+        }
+
+    }
+
+    private bool tryToMakeMovement()
     {
         //Run over all possible movement tiles 
         foreach (Vector2Int movement in movementList)
-        {
+        { 
             if (_canMakeMovement(movement.x, movement.y))
             {
                 if (movement.x > 0) transform.eulerAngles = new Vector3(0, 90, 0);
@@ -125,13 +194,27 @@ public class Guard : Enemy
                 else if (movement.y > 0) transform.eulerAngles = new Vector3(0, 0, 0);
                 else if (movement.y < 0) transform.eulerAngles = new Vector3(0, 180, 0);
 
-
+                myAnimator.SetBool("walking", true);
                 setAttackTiles(movement);
-
 
                 return true;
             }
         }
+
+        readyForNextTurn = true;
+
+        return false;
+    }
+
+    private bool attack()
+    {
+        if (hurt())
+        {
+            myAnimator.SetTrigger("hurt");
+            resetTurnIn(2f);
+            return true;
+        }
+
 
         return false;
     }
@@ -160,8 +243,8 @@ public class Guard : Enemy
 
         //Check if tiles in default position exists and if so, add them to the tiles under attack list
         _addTileToAttackList(movement.x, movement.y);
-        _addTileToAttackList(movement.x*2, movement.y*2);
-        
+        _addTileToAttackList(movement.x * 2, movement.y * 2);
+
 
         //Paint in red all tiles under Attack
         foreach (GameObject tile in attackTiles)
@@ -219,7 +302,7 @@ public class Guard : Enemy
 
             if (tile.GetComponent<GridTilePro>().movable(player.transform.position.x, player.transform.position.z))
             {
-                player.GetComponent<Player>().hurt(2);
+                player.GetComponent<Player>().hurt(1);
 
                 return true;
 

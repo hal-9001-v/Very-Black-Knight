@@ -13,7 +13,7 @@ public class PlayerMovement : MonoBehaviour
 
     //Time to finish movement
     public float MAXTIMETOREACH { get; private set; }
-    public float timeToReach;
+    public float timeToReach { get; private set; }
     private float timeCounter;
 
     [HideInInspector]
@@ -45,7 +45,7 @@ public class PlayerMovement : MonoBehaviour
         game = gameContainerObject.GetComponent<Game>();
         cellSize = game.cellSize;
 
-        MAXTIMETOREACH = 0.35f;
+        MAXTIMETOREACH = 0.5f;
         timeToReach = MAXTIMETOREACH;
 
     }
@@ -235,7 +235,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void setTimeToReach(float f)
     {
-        if (f < 0 || f > MAXTIMETOREACH) return;
+        if (f < 0 ) return;
 
         timeToReach = f;
     }

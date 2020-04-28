@@ -37,7 +37,6 @@ public class CameraFollower : MonoBehaviour
             destination = target.transform.position + cameraOffset;
 
             movementScript.setNewDirections(rotation);
-            
         }else
         if (Input.GetKeyDown(KeyCode.E))
         {
