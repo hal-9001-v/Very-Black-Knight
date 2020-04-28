@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Very Black Knight/Assets/Videos.meta
+guid: 2170080b37dc5c24491baf5d93f1f82d
+=======
 guid: 849e28bc0f6e1a041a3c30a348481713
+>>>>>>> level3Branch:Very Black Knight/Assets/Prefabs/Enemies.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

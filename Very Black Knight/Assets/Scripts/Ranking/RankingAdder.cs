@@ -17,8 +17,9 @@ public class RankingAdder : MonoBehaviour
     PlayerData pd;
 
     void Start() {
+        loadData();
         field = inputFieldObject.GetComponent<InputField>();
-        score = PlayerPrefs.GetInt("inputCount");
+        
 
         scoreText = scoreTextObject.GetComponent<Text>();
 
@@ -34,6 +35,16 @@ public class RankingAdder : MonoBehaviour
         pd.name = field.text;
 
         pd.saveScoreJSON();
+
+
+    }
+
+    private void loadData()
+    {
+        PlayerData pd = PlayerData.loadPlayerDataJSON();
+
+        score = pd.score;
+        
     }
 
 
