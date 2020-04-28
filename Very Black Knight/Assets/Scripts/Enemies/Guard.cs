@@ -14,7 +14,11 @@ public class Guard : Enemy
     //Floats
     float waitTime;
     float currentTime;
-    float baseTimeToReach;
+
+    [Range (10,200)]
+    public float range = 20;
+
+    public bool followDebug;
 
     void Start()
     {
@@ -23,25 +27,26 @@ public class Guard : Enemy
 
         movementList = new List<Vector2Int>();
 
-        baseTimeToReach = timeToReach;
-
         _initialize();
     }
 
     public override void _startTurn()
     {
+        if (Vector3.Distance(transform.position, player.transform.position) > range)
+        {
+            return;
+        }
+        else {
+            if (followDebug) {
+                Debug.Log("Guard: "+gameObject.name+" is in follow range");
+            }
+        }
+
         if (readyForNextTurn)
         {
             readyForNextTurn = false;
 
-            if (Vector3.Distance(transform.position, player.transform.position) < 20)
-            {
-                timeToReach = baseTimeToReach;
-            }
-            else
-            {
-                timeToReach = baseTimeToReach * 2;
-            }
+            
 
             bool attackIsDone = attack();
             if (attackIsDone) return;
