@@ -55,7 +55,6 @@ public class Guard : Enemy
     public override void _endOfMovementActions()
     {
         readyForNextTurn = true;
-        Debug.Log("READY: " + readyForNextTurn);
         myAnimator.SetBool("walking", false);
 
     }
@@ -63,9 +62,6 @@ public class Guard : Enemy
     private void calculateMovements()
     {
         setMovementList(Random.Range(0,3));
-
-        Debug.Log(movementList.Count);
-
 
     }
 
