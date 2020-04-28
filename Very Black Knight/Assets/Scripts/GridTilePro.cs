@@ -33,10 +33,11 @@ public class GridTilePro : MonoBehaviour
 
     MeshRenderer mRenderer;
 
+    public bool occupied = false;
+
     // Start is called before the first frame update
     void Start()
     {
-
         mRenderer = gameObject.GetComponent<MeshRenderer>();
 
         //If there is no MeshRenderer on the object, it may exists in its child
@@ -55,8 +56,6 @@ public class GridTilePro : MonoBehaviour
     //Checking if grid position x-z is next to this tile coordinates in Game Class. This is done by comparing to its own coordinates
     public bool movable(float x, float z)
     {
-
-        //Debug.Log(x+" y "+z +" "+transform.position.x+" y "+transform.position.z);
         //Approximation, numbers may not be exact
         float tolerance = 0.2f;
         if (Mathf.Abs(x - transform.position.x) > tolerance) return false;

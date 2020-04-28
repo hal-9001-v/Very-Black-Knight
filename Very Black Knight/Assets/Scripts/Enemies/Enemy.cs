@@ -63,8 +63,6 @@ public abstract class Enemy : MonoBehaviour
 
     protected bool _canMakeMovement(float xMove, float zMove)
     {
-        if (!doingMovement)
-        {
             Vector3 movementVector = new Vector3();
 
             //Transform desired destination into grid coordinates
@@ -77,7 +75,6 @@ public abstract class Enemy : MonoBehaviour
                 //It is necesarry to store point B for Interpolation
                 startingPosition = transform.position;
 
-
                 //It is necesarry to store point B for Interpolation
                 newPosition = movementVector;
 
@@ -88,6 +85,7 @@ public abstract class Enemy : MonoBehaviour
 
 
                 doingMovement = true;
+           
                 timeCounter = 0;
 
                 direction = newPosition - startingPosition;
@@ -96,7 +94,7 @@ public abstract class Enemy : MonoBehaviour
 
                 return true;
             }
-        }
+        
         return false;
 
     }
@@ -114,9 +112,9 @@ public abstract class Enemy : MonoBehaviour
             //Aproximating to the point
             if (Vector3.Distance(transform.position, newPosition) < 0.05)
             {
+
                 transform.position = newPosition;
                 doingMovement = false;
-
                 _endOfMovementActions();
 
             }
@@ -157,7 +155,6 @@ public abstract class Enemy : MonoBehaviour
             mr = currentTile.GetComponentInChildren<MeshRenderer>();
         }
         mr.material.color += floorColor;
-
 
     }
 }

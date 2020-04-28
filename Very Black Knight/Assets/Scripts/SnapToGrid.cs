@@ -8,9 +8,6 @@ using UnityEditor;
 [ExecuteInEditMode]
 public class SnapToGrid : MonoBehaviour
 {
-    private float offsetLimitX;
-    private float offsetLimitZ;
-
     public float cellSize = 1;
     public bool placeOnGrid = false;
     public bool touchingFloor = true;
@@ -50,10 +47,9 @@ public class SnapToGrid : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-#if UNITY_EDITOR
-
-        if (dimensions.x == 0) dimensions.x = 1;
+        if (!Application.isPlaying)
+        {
+            if (dimensions.x == 0) dimensions.x = 1;
             if (dimensions.y == 0) dimensions.y = 1;
             if (cellSize == 0) cellSize = 1;
 
@@ -93,10 +89,8 @@ public class SnapToGrid : MonoBehaviour
                     transform.position = new Vector3(gridX, gridY, gridZ);
 
                 }
-
-
             }
-#endif
+        }
     }
 
     void scaleXtoFit()

@@ -169,7 +169,7 @@ GameObject:
   - component: {fileID: 7539572802476329720}
   - component: {fileID: 4374175155046882162}
   m_Layer: 0
-  m_Name: Tejado (Pieza Superior) 1
+  m_Name: TejaLateral
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -198,7 +198,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6843967699355875563}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e2ba6ca3fd77b83459e18d214f3b3cd9, type: 3}
   m_Name: 
