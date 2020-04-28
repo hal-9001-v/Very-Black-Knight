@@ -36,6 +36,8 @@ public class RankingAdder : MonoBehaviour
 
         pd.saveScoreJSON();
 
+        if (score < 100) Application.Quit(0);
+
 
     }
 
