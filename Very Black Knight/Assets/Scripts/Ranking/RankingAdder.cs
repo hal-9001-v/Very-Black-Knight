@@ -16,10 +16,11 @@ public class RankingAdder : MonoBehaviour
 
     PlayerData pd;
 
-    void Start() {
+    void Start()
+    {
         loadData();
         field = inputFieldObject.GetComponent<InputField>();
-        
+
 
         scoreText = scoreTextObject.GetComponent<Text>();
 
@@ -28,16 +29,21 @@ public class RankingAdder : MonoBehaviour
         pd = PlayerData.loadPlayerDataJSON();
         pd.readyForScore = true;
 
-        scoreText.text = ""+pd.score;
+        scoreText.text = "" + pd.score;
     }
 
-    public void addPlayer() {
+    public void addPlayer()
+    {
         pd.name = field.text;
 
         pd.saveScoreJSON();
 
-        if (score < 100) Application.Quit(0);
 
+        if (score < 600)
+        {
+            Debug.Log("Closing Game");
+            Application.Quit(0);
+        }
 
     }
 
@@ -46,7 +52,7 @@ public class RankingAdder : MonoBehaviour
         PlayerData pd = PlayerData.loadPlayerDataJSON();
 
         score = pd.score;
-        
+
     }
 
 

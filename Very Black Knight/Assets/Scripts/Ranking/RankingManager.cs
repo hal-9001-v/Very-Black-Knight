@@ -8,7 +8,7 @@ public class RankingManager : MonoBehaviour
     //Scene Elements
     public Text[] scoreTexts;
     public Text[] nameTexts;
-    
+
     public GameObject boardImageObject;
     private RawImage boardImage;
 
@@ -16,13 +16,13 @@ public class RankingManager : MonoBehaviour
 
     //STRINGS
     public static string fileName = "/Data/gamedata.json";
-    
+
     //Display variable
     bool showed = false;
 
     ScoreBoard board;
 
-    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -32,9 +32,10 @@ public class RankingManager : MonoBehaviour
 
         //Load last player data saved
         PlayerData pd = PlayerData.loadPlayerDataJSON();
-        
+
         //If PlayerData should be added to ranking
-        if (pd.readyForScore) {
+        if (pd.readyForScore)
+        {
             Debug.Log("New PLayer on Board");
             addPlayer();
 
@@ -45,8 +46,8 @@ public class RankingManager : MonoBehaviour
         }
 
         //This lines are used to reset board. Do not uncomment unless needed
-        board.setCheckValues();
-       saveRankingJSON(board);
+        //board.setCheckValues();
+        //saveRankingJSON(board);
 
         //Sort board to keep board updated
         board = sortBoard(board);
@@ -91,7 +92,7 @@ public class RankingManager : MonoBehaviour
         if (myBoard != null)
         {
             string JSONData = JsonUtility.ToJson(myBoard);
-            
+
             //Such file will is used for load and save
             File.WriteAllText(Application.dataPath + fileName, JSONData);
 
@@ -107,7 +108,8 @@ public class RankingManager : MonoBehaviour
 
         return myBoard;
     }
-    public void addPlayer() {
+    public void addPlayer()
+    {
         if (board == null)
         {
             board = loadRankingJSON();
@@ -166,7 +168,7 @@ public class RankingManager : MonoBehaviour
             showed = true;
         }
     }
- 
+
 }
 
 class ScoreBoard
@@ -197,7 +199,7 @@ class ScoreBoard
 
         scores[2] = 100000;
         names[2] = "Bot";
-        
+
         scores[3] = 100000;
         names[3] = "Bot";
 
