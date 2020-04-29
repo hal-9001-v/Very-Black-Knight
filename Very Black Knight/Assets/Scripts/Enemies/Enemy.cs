@@ -134,6 +134,7 @@ public abstract class Enemy : MonoBehaviour
 
     }
 
+    //Modify color to floor
     void _applyColorToFloor(Vector3 positionVector)
     {
         MeshRenderer mr;
@@ -144,8 +145,10 @@ public abstract class Enemy : MonoBehaviour
         {
             mr = currentTile.GetComponentInChildren<MeshRenderer>();
         }
+        //Reset current tile's color to original
         mr.material.color -= floorColor;
 
+        //Update current tile into next one
         currentTile = game.getTile(positionVector);
 
         mr = currentTile.GetComponent<MeshRenderer>();
@@ -154,6 +157,8 @@ public abstract class Enemy : MonoBehaviour
         {
             mr = currentTile.GetComponentInChildren<MeshRenderer>();
         }
+
+        //Paint new Tile
         mr.material.color += floorColor;
 
     }

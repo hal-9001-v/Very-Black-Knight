@@ -30,20 +30,27 @@ public class CameraFollower : MonoBehaviour
 
     void LateUpdate()
     {
+        //Rotate camera 90 degrees with player as axis 
         if (Input.GetKeyDown(KeyCode.Q))
         {
             Quaternion rotation = Quaternion.Euler(0, 90, 0);
+            //New ofset is calculated with a rotation
             cameraOffset = rotation * cameraOffset;
             destination = target.transform.position + cameraOffset;
-
+            //Smooth Transition
             movementScript.setNewDirections(rotation);
         }else
+        //Rotate camera -90 degrees with player as axis 
         if (Input.GetKeyDown(KeyCode.E))
         {
             Quaternion rotation = Quaternion.Euler(0,  270, 0);
+            //New ofset is calculated with a rotation
             cameraOffset = rotation * cameraOffset;
+            //Smooth Transition
             destination = target.transform.position + cameraOffset;
 
+
+            //Updating controllers
             movementScript.setNewDirections(rotation);
 
         }

@@ -37,14 +37,19 @@ public class DragonScript : Enemy
         _initialize();
     }
 
+    //StartTurn is called on an Enemy List on Game Object, dragon's actions are started with this function
     public override void _startTurn()
     {
         if (readyForNextTurn)
         {
+            //Check wether player is on an attack Tile
             if (hurt())
             {
+                //Turn is over if an attack is done
                 readyForNextTurn = false;
                 currentState = (int)State.idle;
+
+                //2 Seconds until dragon can move or attack again
                 resetTurnIn(2f);
                 return;
             }
@@ -53,7 +58,7 @@ public class DragonScript : Enemy
             {
                 //Idle
                 case 0:
-
+                    //Spped boost in case player is far away
                     if (Vector3.Distance(transform.position, player.transform.position) < 20)
                     {
                         timeToReach = baseTimeToReach;
@@ -65,7 +70,7 @@ public class DragonScript : Enemy
 
                     movementList.Clear();
 
-                    //Decide movement
+                    //Decide possible movement directions
                     if (player.transform.position.x > transform.position.x)
                     {
                         movementList.Add(new Vector2(1, 0));
@@ -85,7 +90,7 @@ public class DragonScript : Enemy
                         movementList.Add(new Vector2(0, -1));
                     }
 
-
+                    //Check possible movements
                     if (runMoveList())
                     {
                         currentState = (int)State.walking;
@@ -104,33 +109,40 @@ public class DragonScript : Enemy
             }
         }
     }
+
+    //Restart turn when movement is done
     public override void _endOfMovementActions()
     {
         readyForNextTurn = true;
         currentState = (int)State.idle;
         myAnimator.SetBool("walking", false);
 
+        //Add tiles under attack to list
         setAttackTiles();
 
     }
 
     private bool runMoveList()
     {
-        //Run over all possible movement tiles 
+        //Run over all possible movement directions
         foreach (Vector2 movement in movementList)
         {
+            //Choose a tile on direction
             if (_canMakeMovement(movement.x, movement.y))
             {
+                //Rotations according to chosen movement
                 if (movement.x > 0) transform.eulerAngles = new Vector3(0, 90, 0);
                 else if (movement.x < 0) transform.eulerAngles = new Vector3(0, -90, 0);
 
                 else if (movement.y > 0) transform.eulerAngles = new Vector3(0, 0, 0);
                 else if (movement.y < 0) transform.eulerAngles = new Vector3(0, 180, 0);
 
+                //A movement must be done
                 return true;
             }
         }
 
+        //No possible movement
         return false;
     }
 
@@ -141,6 +153,8 @@ public class DragonScript : Enemy
 
         foreach (GameObject tile in attackTiles)
         {
+
+            //Get Mesh renderer from current tile
             if (tile.GetComponent<MeshRenderer>() != null)
                 mr = tile.GetComponent<MeshRenderer>();
             else
@@ -186,6 +200,7 @@ public class DragonScript : Enemy
 
     void Update()
     {
+        //Turn Reset function timer
         delayFunction();
     }
 
@@ -195,7 +210,7 @@ public class DragonScript : Enemy
         _makeMovement();
     }
 
-    //In t milliseconds, readyForNextTurn will be trye
+    //After t milliseconds, readyForNextTurn will be trye
     void resetTurnIn(float t)
     {
         waitTime = t;
@@ -220,15 +235,14 @@ public class DragonScript : Enemy
 
     bool hurt()
     {
+        //Check if player is on any of listed attack tiles
         foreach (GameObject tile in attackTiles)
         {
-
             if (tile.GetComponent<GridTilePro>().movable(player.transform.position.x, player.transform.position.z))
             {
                 player.GetComponent<Player>().hurt(2);
 
                 return true;
-
             }
 
         }

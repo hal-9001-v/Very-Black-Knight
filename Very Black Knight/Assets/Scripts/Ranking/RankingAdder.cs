@@ -39,7 +39,7 @@ public class RankingAdder : MonoBehaviour
         pd.saveScoreJSON();
 
 
-        if (score < 600)
+        if (score > 500)
         {
             Debug.Log("Closing Game");
             Application.Quit(0);

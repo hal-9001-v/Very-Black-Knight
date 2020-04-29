@@ -15,7 +15,7 @@ public class Guard : Enemy
     float waitTime;
     float currentTime;
 
-    [Range (10,200)]
+    [Range(10, 200)]
     public float range = 20;
 
     public bool followDebug;
@@ -32,13 +32,18 @@ public class Guard : Enemy
 
     public override void _startTurn()
     {
+
+        //If player is away from guard, no action is taken
         if (Vector3.Distance(transform.position, player.transform.position) > range)
         {
             return;
         }
-        else {
-            if (followDebug) {
-                Debug.Log("Guard: "+gameObject.name+" is in follow range");
+        else
+        {
+            //Debugging on console if guard is following player
+            if (followDebug)
+            {
+                Debug.Log("Guard: " + gameObject.name + " is in follow range");
             }
         }
 
@@ -46,8 +51,7 @@ public class Guard : Enemy
         {
             readyForNextTurn = false;
 
-            
-
+            //Attack resets turn
             bool attackIsDone = attack();
             if (attackIsDone) return;
 
@@ -57,6 +61,7 @@ public class Guard : Enemy
         }
     }
 
+    //Turn is reset when movement ends
     public override void _endOfMovementActions()
     {
         readyForNextTurn = true;
@@ -66,18 +71,18 @@ public class Guard : Enemy
 
     private void calculateMovements()
     {
-        setMovementList(Random.Range(0,3));
+        setMovementList(Random.Range(0, 3));
 
     }
 
-    void setMovementList(int i) {
+    void setMovementList(int i)
+    {
 
         movementList.Clear();
 
+        //Several order on chosing new movement directions. With this, moves can be more unpredictable
         if (i == 0)
         {
-            
-
             //Decide movement
             if (player.transform.position.x > transform.position.x)
             {
@@ -114,7 +119,7 @@ public class Guard : Enemy
                 movementList.Add(new Vector2Int(1, 0));
             }
 
-            
+
             if (player.transform.position.x < transform.position.x)
             {
                 movementList.Add(new Vector2Int(-1, 0));
@@ -141,7 +146,7 @@ public class Guard : Enemy
                 movementList.Add(new Vector2Int(0, 1));
             }
 
-            
+
             if (player.transform.position.x > transform.position.x)
             {
                 movementList.Add(new Vector2Int(1, 0));
@@ -176,7 +181,7 @@ public class Guard : Enemy
                 movementList.Add(new Vector2Int(0, 1));
             }
 
-            
+
             if (player.transform.position.x > transform.position.x)
             {
                 movementList.Add(new Vector2Int(1, 0));
@@ -190,9 +195,10 @@ public class Guard : Enemy
     {
         //Run over all possible movement tiles 
         foreach (Vector2Int movement in movementList)
-        { 
+        {
             if (_canMakeMovement(movement.x, movement.y))
             {
+                //Rotations according to taken movement
                 if (movement.x > 0) transform.eulerAngles = new Vector3(0, 90, 0);
                 else if (movement.x < 0) transform.eulerAngles = new Vector3(0, -90, 0);
 
@@ -200,6 +206,8 @@ public class Guard : Enemy
                 else if (movement.y < 0) transform.eulerAngles = new Vector3(0, 180, 0);
 
                 myAnimator.SetBool("walking", true);
+
+                //Add tiles under attack to list
                 setAttackTiles(movement);
 
                 return true;
@@ -213,9 +221,12 @@ public class Guard : Enemy
 
     private bool attack()
     {
+        //If player has been attacked
         if (hurt())
         {
             myAnimator.SetTrigger("hurt");
+
+            //After 2 seconds turn will be ready
             resetTurnIn(2f);
             return true;
         }
@@ -226,7 +237,6 @@ public class Guard : Enemy
 
     private void setAttackTiles(Vector2Int movement)
     {
-
         MeshRenderer mr;
 
         foreach (GameObject tile in attackTiles)
@@ -260,7 +270,7 @@ public class Guard : Enemy
             {
                 mr = tile.GetComponentInChildren<MeshRenderer>();
             }
-
+            //Paint new current tile
             mr.material.color += attackColor;
         }
 
@@ -302,9 +312,9 @@ public class Guard : Enemy
 
     bool hurt()
     {
+        //Check if player is on any of the under attack tiles
         foreach (GameObject tile in attackTiles)
         {
-
             if (tile.GetComponent<GridTilePro>().movable(player.transform.position.x, player.transform.position.z))
             {
                 player.GetComponent<Player>().hurt(1);

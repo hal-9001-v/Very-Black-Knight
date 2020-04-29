@@ -57,6 +57,7 @@ public class Player : MonoBehaviour
 
         currentState = (int)State.idle;
 
+        //Load player stats from previous scene or new stats
         if (loadFromDisk)
         {
             loadData();
@@ -123,6 +124,7 @@ public class Player : MonoBehaviour
 
     }
 
+    //Restart scene when dead
     IEnumerator restartScene()
     {
         yield return new WaitForSeconds(2);
@@ -134,37 +136,45 @@ public class Player : MonoBehaviour
 
     public bool hasFinishedTurn()
     {
-
         return finishedTurn;
     }
 
+    //Reduce health points
     public void hurt(float dmg)
     {
         health -= dmg;
 
+        
         if (health <= 0)
-        {
+        {//Dead
             currentState = (int)State.dead;
             myAnimator.SetTrigger("dead");
+
+            //Update Health Bar
             myPlayerGUI.setHealth(0);
         }
         else
-        {
-            myAnimator.SetTrigger("hurt");
+        {//Alive
+            myAnimator.SetTrigger("hurt");   
+            //Update Health Bar
             myPlayerGUI.setHealth(health);
 
         }
 
     }
 
+    //Increase upgrade points
     public void levelUp(int ups)
     {
+        //Stop player input
         playerActive = false;
 
         upgrades = ups;
         playerLevel += ups;
+
         myPlayerGUI.setCurrentLevel(playerLevel);
 
+        //Show level up screen
         displayLevelUpScreen();
     }
 
@@ -173,17 +183,23 @@ public class Player : MonoBehaviour
         playerActive = b;
     }
 
+    //Spend upgrade Points on health
     public void upgradeHealth()
     {
+        
         if (upgrades > 0)
         {
             upgrades--;
 
             healthLevel++;
+            //Apply changes
             loadHealthLevel();
+            //Update
             displayLevelUpScreen();
         }
     }
+
+    //Spend upgrade Points on Movement
     public void upgradeMovement()
     {
         if (upgrades > 0)
@@ -191,25 +207,14 @@ public class Player : MonoBehaviour
             upgrades--;
 
             movementLevel++;
-
+            //Apply changes
             loadMovementLevel();
+            //Update
             displayLevelUpScreen();
         }
-
-
-    }
-    public void upgradeAttack()
-    {
-        if (upgrades > 0)
-        {
-            upgrades--;
-
-            movementLevel++;
-            displayLevelUpScreen();
-        }
-
     }
 
+    //Set movement speed according to current movement level
     private void loadMovementLevel()
     {
         if (movementLevel == 1) {
@@ -227,6 +232,8 @@ public class Player : MonoBehaviour
 
         }
     }
+
+    //Set movement speed according to current health level
     private void loadHealthLevel()
     {
         if (healthLevel == 1)
@@ -234,6 +241,7 @@ public class Player : MonoBehaviour
             MAXHEALTH = 5;
             health = MAXHEALTH;
 
+            //Update GUI values
             myPlayerGUI.setMaxHealth(MAXHEALTH);
 
         }
@@ -242,6 +250,7 @@ public class Player : MonoBehaviour
             MAXHEALTH = 7;
             health = MAXHEALTH;
 
+            //Update GUI values
             myPlayerGUI.setMaxHealth(MAXHEALTH);
 
         }
@@ -250,6 +259,7 @@ public class Player : MonoBehaviour
             MAXHEALTH = 9;
             health = MAXHEALTH;
 
+            //Update GUI values
             myPlayerGUI.setMaxHealth(MAXHEALTH);
 
         }
@@ -257,6 +267,7 @@ public class Player : MonoBehaviour
 
     public void displayLevelUpScreen()
     {
+        //Inhibit player input
         playerActive = false;
 
         myPlayerGUI.setLevelUpIndicators(movementLevel, healthLevel, upgrades);
@@ -270,6 +281,8 @@ public class Player : MonoBehaviour
         myPlayerGUI.hideLevelUpIndicators();
     }
 
+
+    //Load JSON data from previous scene in disk
     private void loadData()
     {
         PlayerData pd = PlayerData.loadPlayerDataJSON();
@@ -293,6 +306,7 @@ public class Player : MonoBehaviour
 
     }
 
+    //Set default stats
     private void setData()
     {
         //FOATS
@@ -311,6 +325,7 @@ public class Player : MonoBehaviour
         myPlayerGUI.setCurrentLevel(playerLevel);
     }
 
+    //Write on disk current stats
     public void saveData()
     {
         PlayerData pd = new PlayerData();
@@ -326,10 +341,15 @@ public class Player : MonoBehaviour
         pd.saveScoreJSON();
     }
 
+    //Load new Scene
     public void nextLevel()
     {
         hideLevelUpScreen();
+
+        //Save data for next scene
         saveData();
+
+        //Change Scene
         int nextScene = UnityEngine.SceneManagement.SceneManager.sceneCount + 1;
         UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex + 1);
     }
