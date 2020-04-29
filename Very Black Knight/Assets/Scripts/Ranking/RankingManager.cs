@@ -45,8 +45,8 @@ public class RankingManager : MonoBehaviour
         }
 
         //This lines are used to reset board. Do not uncomment unless needed
-      //  board.setCheckValues();
-       // saveRankingJSON(board);
+        board.setCheckValues();
+       saveRankingJSON(board);
 
         //Sort board to keep board updated
         board = sortBoard(board);
