@@ -12,28 +12,29 @@ public class GridTilePro : MonoBehaviour
     //Player ends level on this tile
     public bool endingTile = false;
 
+    //Tile hurts player
     public bool hurtTile = false;
     
     [SerializeField]
     public float damage = 1;
     
+    //Tile teleports player
     public bool teleportationTile = false;
     public bool tileEffectAfterTeleportation = false;
+    //Destination
     public GameObject teleportationTileObject;
     
-
+    //Tile pushes player
     public bool pushTile = false;
+    //Push Destination
     public GameObject pushTileObject;
 
     public float cellSize = 1;
-
     
     [RangeAttribute(0.1f, 1)]
     public float scaleFactor = 1;
 
     MeshRenderer mRenderer;
-
-    public bool occupied = false;
 
     // Start is called before the first frame update
     void Start()
@@ -65,19 +66,13 @@ public class GridTilePro : MonoBehaviour
 
     }
 
-
-    
-
-
-
     // Update is called once per frame
     void Update()
     {
-
+        //Execute ONLY on edit mode
         if (!Application.isPlaying)
         {
             if (cellSize == 0) cellSize = 1;
-
 
             scaleToFit();
 
@@ -85,6 +80,7 @@ public class GridTilePro : MonoBehaviour
             float gridZ;
             float gridY;
 
+            //Place on grid
             gridX = Mathf.Round(transform.position.x / cellSize) * cellSize;
             gridY = mRenderer.bounds.size.y / 2;
             gridZ = Mathf.Round(transform.position.z / cellSize) * cellSize;
@@ -95,10 +91,13 @@ public class GridTilePro : MonoBehaviour
 
     void scaleToFit()
     {
+        //Get model dimensions
         float xSize = mRenderer.bounds.size.x;
         float zSize = mRenderer.bounds.size.z;
+
         Vector3 actualScale = gameObject.transform.localScale;
 
+        //Scale model to fit in cell size
         Vector3 scaleVector = new Vector3(actualScale.x * scaleFactor * cellSize / xSize, actualScale.y, actualScale.z * scaleFactor * cellSize / zSize);
 
         gameObject.transform.localScale = scaleVector;

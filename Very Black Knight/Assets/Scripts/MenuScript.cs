@@ -1,8 +1,5 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 using UnityEngine.Events;
 
 public class MenuScript : MonoBehaviour
@@ -13,11 +10,10 @@ public class MenuScript : MonoBehaviour
         startGame.Invoke();
     }
 
+    //Apply fadeout effect on gameObject
     public void fadeOutGameObject(GameObject go)
     {
-
         float seconds = 0.01f;
-
 
         if (go.GetComponent<CanvasRenderer>() != null)
         {
@@ -30,6 +26,7 @@ public class MenuScript : MonoBehaviour
 
     }
 
+    //Load new Scene with index
     public void loadScene(int index) {
 
         StartCoroutine(LoadScene(index));
@@ -47,6 +44,7 @@ public class MenuScript : MonoBehaviour
         Application.Quit();
     } 
 
+    //Apply fade in Effect on GameObject
     public void fadeInGameObject(GameObject go) {
 
         FadeObject fo = go.GetComponent<FadeObject>();
@@ -63,13 +61,9 @@ public class MenuScript : MonoBehaviour
             StartCoroutine(FadeInGameObject(go.GetComponent<CanvasRenderer>(), seconds, waitUntilStartTime));
 
         }
-     
-
-        
-
-
     }
 
+    //Increase Alpha from 0 to apply fade In Effect
     private IEnumerator FadeInGameObject(CanvasRenderer myCanvasRenderer, float seconds, float waitUntilStartTime) {
         float alpha = 0;
         myCanvasRenderer.SetAlpha(alpha);
@@ -81,6 +75,7 @@ public class MenuScript : MonoBehaviour
             myCanvasRenderer.SetAlpha(alpha);
             alpha += 0.01f;
 
+            //Wait for this time on every frame
             yield return new WaitForSeconds(seconds);
         }
 
@@ -100,11 +95,10 @@ public class MenuScript : MonoBehaviour
             myCanvasRenderer.SetAlpha(alpha);
             alpha -= 0.01f;
 
+            //Wait for this time on every frame
             yield return new WaitForSeconds(seconds);
 
         }
         yield return 0;
     }
-
-
 }

@@ -57,19 +57,6 @@ public class Game : MonoBehaviour
         //We have to check every floor tile we have
         foreach (GridTilePro gt in tiles)
         {
-            /*if (gt.movable(x, y))
-            {
-                if (gt.endingTile)
-                {
-                    Debug.Log("End of Scene");
-                    atEndTile.Invoke();
-                    return true;
-                }
-
-                return gt.tileEffects();
-
-            }*/
-
             if (gt.movable(x, y)) {
                 return true;
             }

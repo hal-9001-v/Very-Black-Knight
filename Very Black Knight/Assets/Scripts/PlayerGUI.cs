@@ -40,7 +40,10 @@ public class PlayerGUI : MonoBehaviour
     {
 
         colorBar = colorBarObject.GetComponent<Image>();
+        
+        //Modify transformation pivot to reduce bar to the left direction
         colorBar.rectTransform.pivot = new Vector2(0, 0.5f);
+        
         colorBar.fillMethod = Image.FillMethod.Horizontal;
 
         maxLocalScale = colorBar.rectTransform.localScale;
@@ -68,18 +71,18 @@ public class PlayerGUI : MonoBehaviour
 
     public void setHealth(float hp)
     {
+        //If health is lesser than 0, make it 0
         if (hp < 0 | hp > maxHealth)
         {
             setHealth(0);
 
         }
 
+        //Bar is relative to health %
         Vector3 actualScale = maxLocalScale;
         actualScale.x *= hp / maxHealth;
         
         colorBar.rectTransform.localScale = actualScale;
-
-
     }
 
     public void setLevelUpIndicators(int movementLvl, int healthLvl, int upgrades) {

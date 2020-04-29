@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Video;
@@ -20,7 +19,6 @@ public class VideoManager : MonoBehaviour
         myVideoPlayer = gameObject.GetComponent<VideoPlayer>();
         rawImage = gameObject.GetComponent<RawImage>();
 
-
         if (readyToPlay)
 
             playClip();
@@ -29,6 +27,7 @@ public class VideoManager : MonoBehaviour
             myVideoPlayer.loopPointReached += EndFunction;
     }
 
+    //Execute actions when vidio ends
     void EndFunction(VideoPlayer vp)
     {
         atEndActions.Invoke();
@@ -37,6 +36,7 @@ public class VideoManager : MonoBehaviour
 
     public void playClip()
     {
+        //Coroutine makes possible interaction with other elements
         StartCoroutine(playVideo());
     }
 
@@ -48,17 +48,19 @@ public class VideoManager : MonoBehaviour
 
     IEnumerator playVideo()
     {
-
         myVideoPlayer.Prepare();
 
+        //Wait until video is ready
         while (!myVideoPlayer.isPrepared)
         {
-
             yield return new WaitForSeconds(0.1f);
-
         }
+
         rawImage.enabled = true;
+
+        //Print video as texture on raw image
         rawImage.texture = myVideoPlayer.texture;
+
         myVideoPlayer.Play();
 
         yield return 0;

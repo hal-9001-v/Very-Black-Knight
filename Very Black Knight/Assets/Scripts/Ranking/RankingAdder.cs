@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.IO;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class RankingAdder : MonoBehaviour
@@ -18,18 +15,23 @@ public class RankingAdder : MonoBehaviour
 
     void Start()
     {
-        loadData();
+        //Get Player name from input
         field = inputFieldObject.GetComponent<InputField>();
 
-
-        scoreText = scoreTextObject.GetComponent<Text>();
-
-        scoreText.text = "Score: " + score;
-
+        //Read Data
         pd = PlayerData.loadPlayerDataJSON();
+        score = pd.score;
+
         pd.readyForScore = true;
 
+        //Text update
+        scoreText = scoreTextObject.GetComponent<Text>();
+        scoreText.text = "Score: " + score;
         scoreText.text = "" + pd.score;
+
+        
+
+        
     }
 
     public void addPlayer()
@@ -46,14 +48,5 @@ public class RankingAdder : MonoBehaviour
         }
 
     }
-
-    private void loadData()
-    {
-        PlayerData pd = PlayerData.loadPlayerDataJSON();
-
-        score = pd.score;
-
-    }
-
 
 }

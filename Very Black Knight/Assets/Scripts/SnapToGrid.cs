@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEditor;
-
+﻿using UnityEngine;
 
 //Author: Vic
 [ExecuteInEditMode]
@@ -47,6 +43,7 @@ public class SnapToGrid : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Execute ONLY on edit Mode
         if (!Application.isPlaying)
         {
             if (dimensions.x == 0) dimensions.x = 1;
@@ -63,6 +60,7 @@ public class SnapToGrid : MonoBehaviour
                 float gridZ;
 
                 if (!ignoreSnapX)
+                    //Place on X grid
                     gridX = Mathf.Round(transform.position.x / cellSize) * cellSize;
                 else
                 {
@@ -70,6 +68,7 @@ public class SnapToGrid : MonoBehaviour
                 }
 
                 if (!ignoreSnapZ)
+                    //Place on Y grid
                     gridZ = Mathf.Round(transform.position.z / cellSize) * cellSize;
                 else
                 {
@@ -79,13 +78,13 @@ public class SnapToGrid : MonoBehaviour
 
                 if (!touchingFloor)
                 {
-
-
                     transform.position = new Vector3(gridX, transform.position.y, gridZ);
                 }
                 else
                 {
+                    //Get model's height/2 
                     float gridY = mRenderer.bounds.size.y / 2;
+                    //Place Object so it is touching ground perfectly
                     transform.position = new Vector3(gridX, gridY, gridZ);
 
                 }
@@ -95,21 +94,27 @@ public class SnapToGrid : MonoBehaviour
 
     void scaleXtoFit()
     {
+        //Get model's x size
         float xSize = mRenderer.bounds.size.x;
         Vector3 actualScale = gameObject.transform.localScale;
 
+        //Calculate needed size
         Vector3 scaleVector = new Vector3(actualScale.x * scaleFactor * cellSize * dimensions.x / xSize, actualScale.y, actualScale.z);
 
+        //Apply scale to model
         gameObject.transform.localScale = scaleVector;
     }
 
     void scaleZtoFit()
     {
+        //Get model's z size
         float zSize = mRenderer.bounds.size.z;
         Vector3 actualScale = gameObject.transform.localScale;
 
+        //Calculate needed size
         Vector3 scaleVector = new Vector3(actualScale.x, actualScale.y, actualScale.z * scaleFactor * cellSize * dimensions.y / zSize);
-        gameObject.transform.
+
+        //Apply scale to model
         gameObject.transform.localScale = scaleVector;
     }
 

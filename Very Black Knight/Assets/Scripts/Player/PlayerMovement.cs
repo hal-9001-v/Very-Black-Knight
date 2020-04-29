@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 //Author: Vic
 public class PlayerMovement : MonoBehaviour
@@ -66,6 +64,7 @@ public class PlayerMovement : MonoBehaviour
                 keyPressed = true;
                 if (canMakeMovement(FWVector.x, FWVector.z))
                 {
+                    //Transform angles to face direction
                     Vector3 newRotation = Quaternion.LookRotation(FWVector).eulerAngles;
                     
                     transform.eulerAngles = newRotation;
@@ -82,6 +81,7 @@ public class PlayerMovement : MonoBehaviour
                 keyPressed = true;
                 if (canMakeMovement(BWVector.x, BWVector.z))
                 {
+                    //Transform angles to face direction
                     Vector3 newRotation = Quaternion.LookRotation(BWVector).eulerAngles;
                     
                     transform.eulerAngles = newRotation;
@@ -98,6 +98,7 @@ public class PlayerMovement : MonoBehaviour
                 keyPressed = true;
                 if (canMakeMovement(RVector.x, RVector.z))
                 {
+                    //Transform angles to face direction
                     Vector3 newRotation = Quaternion.LookRotation(RVector).eulerAngles;
                   
                     transform.eulerAngles = newRotation;
@@ -114,6 +115,7 @@ public class PlayerMovement : MonoBehaviour
                 keyPressed = true;
                 if (canMakeMovement(LVector.x, LVector.z))
                 {
+                    //Transform angles to face direction
                     Vector3 newRotation = Quaternion.LookRotation(LVector).eulerAngles;
                     
                     transform.eulerAngles = newRotation;
@@ -128,10 +130,7 @@ public class PlayerMovement : MonoBehaviour
                 rotateDirections();
 
         }
-
-
         return false;
-
     }
 
     //Physics must be done on FixedUpdate as it is always executed
@@ -240,6 +239,7 @@ public class PlayerMovement : MonoBehaviour
         timeToReach = f;
     }
 
+    //Apply rotation matrix into movement vectors
     private void rotateDirections() {
 
         if (newDirections)
@@ -252,16 +252,9 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    //When camera is rotated, movement vectors must be updated with a rotation matrix
     public void setNewDirections(Quaternion rotate) {
         newDirections = true;
         newRotation = rotate;
     }
-}
-
-public struct TileEffect
-{
-    public bool done;
-    public bool push;
-    public bool teleportation;
-    public Vector3 vectorValue;
 }
