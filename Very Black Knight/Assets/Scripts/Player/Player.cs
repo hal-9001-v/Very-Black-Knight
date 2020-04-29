@@ -311,7 +311,7 @@ public class Player : MonoBehaviour
         myPlayerGUI.setCurrentLevel(playerLevel);
     }
 
-    private void saveData()
+    public void saveData()
     {
         PlayerData pd = new PlayerData();
         pd.maxHealth = MAXHEALTH;
@@ -320,6 +320,8 @@ public class Player : MonoBehaviour
         pd.movementLevel = movementLevel;
         pd.healthLevel = healthLevel;
         pd.score = movementScript.inputCount;
+
+        Debug.Log("Data Saved");
 
         pd.saveScoreJSON();
     }

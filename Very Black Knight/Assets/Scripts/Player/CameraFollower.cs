@@ -48,10 +48,6 @@ public class CameraFollower : MonoBehaviour
 
         }
 
-
-            
-        
-
         //Moves on camera are interpolations. Destination variable is the "locked" place for the camera
         destination = target.transform.position + cameraOffset;
 
