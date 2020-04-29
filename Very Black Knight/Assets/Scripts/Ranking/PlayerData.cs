@@ -6,7 +6,6 @@ public class PlayerData
     //Path for data
     public static string sceneData = "/Data/sceneData.json";
 
-
     //Adding player to ranking board is up to this variable
     public bool readyForScore;
 
@@ -27,12 +26,12 @@ public class PlayerData
     public void saveScoreJSON()
     {
         string JSONData = JsonUtility.ToJson(this);
-        File.WriteAllText(Application.dataPath + sceneData, JSONData);
+        File.WriteAllText(Application.streamingAssetsPath + sceneData, JSONData);
     }
     //Load player data from previous scenes
     public static PlayerData loadPlayerDataJSON()
     {
-        return JsonUtility.FromJson<PlayerData>(File.ReadAllText(Application.dataPath + sceneData));
+        return JsonUtility.FromJson<PlayerData>(File.ReadAllText(Application.streamingAssetsPath + sceneData));
     }
 }
 

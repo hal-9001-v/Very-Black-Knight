@@ -27,27 +27,38 @@ public class RankingManager : MonoBehaviour
     void Start()
     {
         boardImage = boardImageObject.GetComponent<RawImage>();
-
-        board = loadRankingJSON();
-
+        
         //Load last player data saved
-        PlayerData pd = PlayerData.loadPlayerDataJSON();
-
-        //If PlayerData should be added to ranking
-        if (pd.readyForScore)
+        if (File.Exists(Application.streamingAssetsPath + fileName))
         {
-            Debug.Log("New PLayer on Board");
-            addPlayer();
+            Debug.Log("Player Found");
+            board = loadRankingJSON();
 
-            //PlayerData should be added only once. Addition variable turned to 0 and updated in save file
-            pd.readyForScore = false;
+            PlayerData pd = PlayerData.loadPlayerDataJSON();
 
-            pd.saveScoreJSON();
+            //If PlayerData should be added to ranking
+            if (pd.readyForScore)
+            {
+                Debug.Log("New PLayer on Board");
+                addPlayer();
+
+                //PlayerData should be added only once. Addition variable turned to 0 and updated in save file
+                pd.readyForScore = false;
+
+                pd.saveScoreJSON();
+            }
+        }
+        else {
+            Debug.Log("New Board");
+
+            board = new ScoreBoard();
+            board.setCheckValues();
+            saveRankingJSON(board);
         }
 
+
         //This lines are used to reset board. Do not uncomment unless needed
-        //board.setCheckValues();
-        //saveRankingJSON(board);
+
 
         //Sort board to keep board updated
         board = sortBoard(board);
@@ -94,7 +105,7 @@ public class RankingManager : MonoBehaviour
             string JSONData = JsonUtility.ToJson(myBoard);
 
             //Such file will is used for load and save
-            File.WriteAllText(Application.dataPath + fileName, JSONData);
+            File.WriteAllText(Application.streamingAssetsPath + fileName, JSONData);
 
             Debug.Log("Score Board Succesfully Saved");
         }
@@ -104,7 +115,7 @@ public class RankingManager : MonoBehaviour
         ScoreBoard myBoard;
 
         //Board is extracted from JSON data file
-        myBoard = JsonUtility.FromJson<ScoreBoard>(File.ReadAllText(Application.dataPath + fileName));
+        myBoard = JsonUtility.FromJson<ScoreBoard>(File.ReadAllText(Application.streamingAssetsPath + fileName));
 
         return myBoard;
     }
