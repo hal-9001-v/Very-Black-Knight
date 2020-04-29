@@ -54031,6 +54031,11 @@ PrefabInstance:
       propertyPath: BypassReverbZones
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3067118116336836079, guid: b6acddce37929d14094d3b73398e5b04,
+        type: 3}
+      propertyPath: Loop
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3067118116336836081, guid: b6acddce37929d14094d3b73398e5b04,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -54086,7 +54091,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3067118116336836080, guid: b6acddce37929d14094d3b73398e5b04, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: b6acddce37929d14094d3b73398e5b04, type: 3}
 --- !u!1001 &1137456976
 PrefabInstance:
