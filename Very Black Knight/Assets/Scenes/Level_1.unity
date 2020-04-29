@@ -37100,7 +37100,7 @@ PrefabInstance:
     - target: {fileID: 476095482477814752, guid: 7a20c9b1242089a448186cfdd8c953a6,
         type: 3}
       propertyPath: endingTile
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5391320273978576785, guid: 7a20c9b1242089a448186cfdd8c953a6,
         type: 3}

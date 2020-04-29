@@ -37456,7 +37456,7 @@ PrefabInstance:
     - target: {fileID: 3095236688911691039, guid: caf01a4b80f68f949a8a6957335a5355,
         type: 3}
       propertyPath: endingTile
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4172446619205294585, guid: caf01a4b80f68f949a8a6957335a5355,
         type: 3}
